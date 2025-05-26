@@ -1,9 +1,9 @@
-package com.winston.crm_mit_oemer;
+package com.winston.crm_mit_oemer.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-public class HelloController {
+public class AppController {
     @FXML
     private Label welcomeText;
 
