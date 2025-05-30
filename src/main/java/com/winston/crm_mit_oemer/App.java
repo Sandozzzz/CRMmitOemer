@@ -4,9 +4,12 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Objects;
 
 public class App extends Application {
 
@@ -14,7 +17,9 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-
+        stage.getIcons().add(
+                new Image(Objects.requireNonNull(
+                        getClass().getResourceAsStream("/com/winston/crm_mit_oemer/assets/logo1.png"))));
         // Baut die Objekte nach der Vorgabe der FXML-Datei
         scene = new Scene(loadFXML("login-view"));
         stage.setTitle("CRM");
