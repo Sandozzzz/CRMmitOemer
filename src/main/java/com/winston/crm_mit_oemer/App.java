@@ -16,20 +16,20 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
 
         // Baut die Objekte nach der Vorgabe der FXML-Datei
-        scene = new Scene(loadFXML("main-view"));
-        stage.setTitle("Hello!");
+        scene = new Scene(loadFXML("login-view"));
+        stage.setTitle("CRM");
         stage.setScene(scene);
         stage.show();
     }
 
     // Überschreibt die sichtbare View
-    static void setRoot(String fxml) throws IOException {
+   public static void setRoot(String fxml) throws IOException {
         scene.setRoot   (loadFXML(fxml));
     }
 
     // Lädt die FXML-Datei und baut daraus die GUI
     private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("views/"+fxml + ".fxml"));
         return  fxmlLoader.load();
     }
 

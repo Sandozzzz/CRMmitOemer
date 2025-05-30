@@ -1,0 +1,15 @@
+AnchorPane {
+    -fx-background-color: rgba(163, 193, 251, 0.68);
+}
+
+Button {
+    -fx-background-color: grey;
+    -fx-text-fill: white;
+    -fx-font-weight: bold ;
+}
+
+Button:hover {
+    -fx-background-color: darkblue;
+    -fx-text-fill: white;
+    -fx-font-weight: bold ;
+}
