@@ -3,7 +3,7 @@ AnchorPane {
 }
 
 Button {
-    -fx-background-color: grey;
+    -fx-background-color: #afacac;
     -fx-text-fill: white;
     -fx-font-weight: bold ;
 }

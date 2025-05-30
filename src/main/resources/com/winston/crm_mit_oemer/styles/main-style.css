@@ -1,0 +1,8 @@
+AnchorPane {
+    -fx-background-color: rgba(218, 233, 251, 0.68);
+}
+
+Button {
+    -fx-font-size: 24;
+    -fx-background-color: #f4bf52;
+}
