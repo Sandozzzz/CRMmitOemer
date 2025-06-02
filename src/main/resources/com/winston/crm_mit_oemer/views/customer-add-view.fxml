@@ -9,16 +9,16 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.winston.crm_mit_oemer.controller.AddCustomerController">
    <stylesheets>
-      <URL value="@../styles/main-style.css" />
       <URL value="@../styles/login-style.css" />
+      <URL value="@../styles/main-style.css" />
    </stylesheets>
    <children>
-      <Label fx:id="welcomeText" alignment="CENTER" layoutX="394.0" layoutY="41.0" text="Kunde Hinzufügen" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="40.0">
+      <Label alignment="CENTER" layoutX="394.0" layoutY="41.0" text="Kunde Hinzufügen" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="40.0">
          <font>
             <Font name="System Bold" size="30.0" />
          </font>
       </Label>
-      <Button id="normal-button" layoutX="377.0" layoutY="434.0" mnemonicParsing="false" onAction="#onSaveCustomerClicked" prefHeight="10.0" prefWidth="270.0" styleClass="normal-button" text="Speichern" />
+      <Button id="normal-button" layoutX="377.0" layoutY="434.0" mnemonicParsing="false" onAction="#onSaveCustomerClicked" prefHeight="10.0" prefWidth="270.0"  text="Speichern" />
       <Button id="cancel-button" layoutX="377.0" layoutY="479.0" mnemonicParsing="false" onAction="#onCancelClicked" prefHeight="25.0" prefWidth="270.0" stylesheets="@../styles/main-style.css" text="Abbrechen" />
       <Label layoutX="378.0" layoutY="169.0" prefWidth="270.0" text="Vorname" />
       <TextField layoutX="377.0" layoutY="185.0" prefHeight="35.0" prefWidth="270.0" />
