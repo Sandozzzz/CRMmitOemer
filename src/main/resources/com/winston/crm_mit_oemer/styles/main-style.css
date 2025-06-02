@@ -1,8 +1,25 @@
+/* https://colorhunt.co/palette/332d564e668871c0bbe3eeb2  */
+
 AnchorPane {
-    -fx-background-color: rgba(218, 233, 251, 0.68);
+    -fx-background-color: #71C0BB;
 }
 
 Button {
     -fx-font-size: 24;
-    -fx-background-color: #f4bf52;
+    -fx-background-color: #4E6688;
+}
+
+#normal-button {
+    -fx-font-size: 16;
+    -fx-background-color: #4E6688;
+}
+#cancel-button {
+    -fx-font-size: 16;
+    -fx-background-color: #E3EEB2;
+    -fx-text-fill: #332D56;
+}
+
+MenuItem {
+    -fx-width: 200px;
+    -fx-height: 35px;
 }

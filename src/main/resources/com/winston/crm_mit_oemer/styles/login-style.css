@@ -1,15 +1,15 @@
 AnchorPane {
-    -fx-background-color: rgba(163, 193, 251, 0.68);
+    -fx-background-color: #71C0BB;
 }
 
 Button {
-    -fx-background-color: #afacac;
-    -fx-text-fill: white;
+    -fx-background-color: #4E6688;
+    -fx-text-fill: #E3EEB2;
     -fx-font-weight: bold ;
 }
 
 Button:hover {
-    -fx-background-color: darkblue;
-    -fx-text-fill: white;
+    -fx-background-color: #E3EEB2;
+    -fx-text-fill: #332D56;
     -fx-font-weight: bold ;
 }

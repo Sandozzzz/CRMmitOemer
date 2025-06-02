@@ -6,20 +6,20 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.winston.crm_mit_oemer.controller.MainController">
    <stylesheets>
       <URL value="@../styles/login-style.css" />
       <URL value="@../styles/main-style.css" />
    </stylesheets>
    <children>
-      <Button alignment="CENTER" layoutX="291.0" layoutY="183.0" mnemonicParsing="false" onAction="#onKundeManagementClicked" prefHeight="127.0" prefWidth="186.0" text="Kunde Management" textAlignment="CENTER" wrapText="true" />
-      <Button layoutX="553.0" layoutY="183.0" mnemonicParsing="false" onAction="#onTaskManagementClicked" prefHeight="127.0" prefWidth="186.0" text="Task Management" textAlignment="CENTER" wrapText="true" />
-      <Button fx:id="personalButton" layoutX="428.0" layoutY="377.0" mnemonicParsing="false" onAction="#onPersonalManagementClicked" prefHeight="127.0" prefWidth="186.0" text="Personal Verwaltung" textAlignment="CENTER" wrapText="true" />
-      <Label fx:id="welcomeText" layoutX="369.0" layoutY="33.0" text="Herzlich willkommen Jessica!">
+      <Button alignment="CENTER" layoutX="533.0" layoutY="214.0" mnemonicParsing="false" onAction="#onKundeManagementClicked" prefHeight="127.0" prefWidth="186.0" text="Kunde Management" textAlignment="CENTER" wrapText="true" />
+      <Button layoutX="306.0" layoutY="214.0" mnemonicParsing="false" onAction="#onTaskManagementClicked" prefHeight="127.0" prefWidth="186.0" text="Task Management" textAlignment="CENTER" wrapText="true" />
+      <Button fx:id="personalButton" layoutX="306.0" layoutY="379.0" mnemonicParsing="false" onAction="#onPersonalManagementClicked" prefHeight="127.0" prefWidth="186.0" text="Personal Verwaltung" textAlignment="CENTER" wrapText="true" />
+      <Label fx:id="welcomeText" alignment="CENTER" layoutX="369.0" layoutY="33.0" text="Herzlich willkommen Jessica!" textAlignment="CENTER" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="40.0">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
+      <Button fx:id="personalButton1" layoutX="533.0" layoutY="379.0" mnemonicParsing="false" onAction="#onPersonalManagementClicked" prefHeight="127.0" prefWidth="186.0" text="Einstellungen" textAlignment="CENTER" wrapText="true" />
    </children>
 </AnchorPane>

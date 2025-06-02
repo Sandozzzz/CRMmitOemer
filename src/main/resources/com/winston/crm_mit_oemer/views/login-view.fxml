@@ -7,12 +7,11 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane prefHeight="720.0" prefWidth="1080.0" stylesheets="@../styles/login-style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.winston.crm_mit_oemer.controller.LoginController">
    <children>
-      <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="438.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="309.0" fitWidth="264.0" layoutX="404.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../assets/logo1.png" />
+            <Image url="@../assets/logo.png" />
          </image>
       </ImageView>
       <Label layoutX="423.0" layoutY="310.0" text="Email" />
