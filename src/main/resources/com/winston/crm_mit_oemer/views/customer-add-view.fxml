@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.winston.crm_mit_oemer.controller.AddCustomerController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.winston.crm_mit_oemer.controller.customers.AddCustomerController">
    <stylesheets>
       <URL value="@../styles/login-style.css" />
       <URL value="@../styles/main-style.css" />
@@ -18,15 +18,20 @@
             <Font name="System Bold" size="30.0" />
          </font>
       </Label>
-      <Button id="normal-button" layoutX="377.0" layoutY="434.0" mnemonicParsing="false" onAction="#onSaveCustomerClicked" prefHeight="10.0" prefWidth="270.0"  text="Speichern" />
+      <Button id="normal-button" layoutX="377.0" layoutY="434.0" mnemonicParsing="false" onAction="#onSaveCustomerClicked" prefHeight="10.0" prefWidth="270.0" text="Speichern" />
       <Button id="cancel-button" layoutX="377.0" layoutY="479.0" mnemonicParsing="false" onAction="#onCancelClicked" prefHeight="25.0" prefWidth="270.0" stylesheets="@../styles/main-style.css" text="Abbrechen" />
-      <Label layoutX="378.0" layoutY="169.0" prefWidth="270.0" text="Vorname" />
-      <TextField layoutX="377.0" layoutY="185.0" prefHeight="35.0" prefWidth="270.0" />
-      <Label layoutX="378.0" layoutY="227.0" prefWidth="270.0" text="Nachname" />
-      <TextField layoutX="377.0" layoutY="244.0" prefHeight="35.0" prefWidth="270.0" />
-      <Label layoutX="378.0" layoutY="289.0" prefWidth="270.0" text="Email" />
-      <TextField layoutX="377.0" layoutY="305.0" prefHeight="35.0" prefWidth="270.0" />
-      <Label layoutX="378.0" layoutY="347.0" prefWidth="270.0" text="Telefon" />
-      <TextField layoutX="377.0" layoutY="364.0" prefHeight="35.0" prefWidth="270.0" />
+      <Label layoutX="168.0" layoutY="172.0" prefWidth="270.0" text="Vorname" />
+      <TextField layoutX="167.0" layoutY="188.0" prefHeight="35.0" prefWidth="270.0" />
+      <Label layoutX="168.0" layoutY="230.0" prefWidth="270.0" text="Nachname" />
+      <TextField layoutX="167.0" layoutY="247.0" prefHeight="35.0" prefWidth="270.0" />
+      <Label layoutX="168.0" layoutY="292.0" prefWidth="270.0" text="Email" />
+      <TextField layoutX="167.0" layoutY="308.0" prefHeight="35.0" prefWidth="270.0" />
+      <Label layoutX="168.0" layoutY="350.0" prefWidth="270.0" text="Telefon" />
+      <TextField layoutX="167.0" layoutY="367.0" prefHeight="35.0" prefWidth="270.0" />
+      <Label layoutX="545.0" layoutY="172.0" prefWidth="270.0" text="Firma" />
+      <TextField layoutX="544.0" layoutY="188.0" prefHeight="35.0" prefWidth="270.0" />
+      <Label layoutX="545.0" layoutY="230.0" prefWidth="270.0" text="Profilfoto" />
+      <TextField layoutX="544.0" layoutY="246.0" prefHeight="35.0" prefWidth="191.0" />
+      <Button id="normal-button" layoutX="742.0" layoutY="245.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="73.0" text="+" />
    </children>
 </AnchorPane>

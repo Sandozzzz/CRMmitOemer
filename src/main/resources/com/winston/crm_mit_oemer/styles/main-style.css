@@ -1,7 +1,7 @@
 /* https://colorhunt.co/palette/332d564e668871c0bbe3eeb2  */
 
 AnchorPane {
-    -fx-background-color: linear-gradient(white,rgba(149, 223, 219, 0.91));
+    -fx-background-color: linear-gradient(white,white,white,whitesmoke,rgba(149, 223, 219, 0.75));
 }
 
 Button {
@@ -19,7 +19,7 @@ Button {
     -fx-text-fill: #332D56;
 }
 
-MenuItem {
-    -fx-width: 200px;
-    -fx-height: 35px;
+#cancel-button:hover {
+    -fx-background-color: #332D56;
+    -fx-text-fill: #E3EEB2;
 }

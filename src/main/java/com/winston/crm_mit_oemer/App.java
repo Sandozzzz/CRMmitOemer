@@ -18,7 +18,7 @@ public class App extends Application {
         //add Logo to Header
         stage.getIcons().add(
                 new Image(Objects.requireNonNull(
-                        getClass().getResourceAsStream("/com/winston/crm_mit_oemer/assets/logo.png"))));
+                        getClass().getResourceAsStream("/com/winston/crm_mit_oemer/assets/logowithbg.png"))));
         // Baut die Objekte nach der Vorgabe der FXML-Datei
         scene = new Scene(loadFXML("login-view"));
         stage.setTitle("CRM");

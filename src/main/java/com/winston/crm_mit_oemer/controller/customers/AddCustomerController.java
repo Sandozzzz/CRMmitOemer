@@ -1,4 +1,4 @@
-package com.winston.crm_mit_oemer.controller;
+package com.winston.crm_mit_oemer.controller.customers;
 
 import com.winston.crm_mit_oemer.App;
 import javafx.fxml.FXML;

@@ -37,30 +37,10 @@ public class MainController implements Initializable {
 
     @FXML
     protected void onPersonalManagementClicked() throws IOException {
-        App.setRoot("main-view");
+        App.setRoot("personal-management-view");
 
     }
 
-    @FXML
-    protected void onTaskEditClicked() throws IOException {
-        App.setRoot("task-edit-view");
-
-    }
-    @FXML
-    protected void onAddTaskClicked() throws IOException {
-        App.setRoot("task-add-view");
-
-    }
-    @FXML
-    protected void onCustomerEditClicked() throws IOException {
-        App.setRoot("customer-edit-view");
-
-    }
-    @FXML
-    protected void onAddCustomerClicked() throws IOException {
-        App.setRoot("customer-add-view");
-
-    }
 
     @FXML
     protected void onBackClicked() throws IOException {

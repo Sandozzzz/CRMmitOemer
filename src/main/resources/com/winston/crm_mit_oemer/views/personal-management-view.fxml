@@ -7,19 +7,19 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.winston.crm_mit_oemer.controller.customers.CustomerManagementController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.winston.crm_mit_oemer.controller.personals.PersonalManagementController">
    <stylesheets>
       <URL value="@../styles/login-style.css" />
       <URL value="@../styles/main-style.css" />
    </stylesheets>
    <children>
-      <Label fx:id="welcomeText" alignment="CENTER" layoutX="382.0" layoutY="40.0" prefHeight="45.0" prefWidth="824.0" text="Kunden Management" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="40.0">
+      <Label fx:id="welcomeText" alignment="CENTER" layoutX="382.0" layoutY="40.0" prefHeight="45.0" prefWidth="824.0" text="Personal Management" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="40.0">
          <font>
             <Font name="System Bold" size="30.0" />
          </font>
       </Label>
       <Button id="cancel-button" layoutX="450.0" layoutY="642.0" mnemonicParsing="false" onAction="#onBackClicked" prefHeight="38.0" prefWidth="121.0" text="Zurück" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="450.0" AnchorPane.rightAnchor="450.0" />
-      <Button id="normal-button" layoutX="800.0" layoutY="47.0" mnemonicParsing="false" onAction="#onAddCustomerClicked" prefHeight="38.0" prefWidth="124.0" text="+ Neu Kunde" textAlignment="CENTER" wrapText="true" AnchorPane.rightAnchor="100.0" />
+      <Button id="normal-button" layoutX="800.0" layoutY="47.0" mnemonicParsing="false" onAction="#onAddPersonalClicked" prefHeight="38.0" prefWidth="139.0" text="+ Neu Personal" textAlignment="CENTER" wrapText="true" AnchorPane.rightAnchor="100.0" />
       <ListView layoutX="100.0" layoutY="97.0" prefHeight="534.0" prefWidth="824.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" />
    </children>
 </AnchorPane>
