@@ -3,11 +3,13 @@
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.winston.crm_mit_oemer.controller.customers.AddCustomerController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.winston.crm_mit_oemer.controller.personals.AddPersonalController">
    <stylesheets>
       <URL value="@../styles/login-style.css" />
       <URL value="@../styles/main-style.css" />
@@ -20,18 +22,23 @@
    <Button id="normal-button" layoutX="377.0" layoutY="434.0" mnemonicParsing="false" onAction="#onSaveCustomerClicked" prefHeight="10.0" prefWidth="270.0" text="Speichern" />
    <Button id="cancel-button" layoutX="377.0" layoutY="479.0" mnemonicParsing="false" onAction="#onCancelClicked" prefHeight="25.0" prefWidth="270.0" stylesheets="@../styles/main-style.css" text="Abbrechen" />
    <Label layoutX="544.0" layoutY="170.0" prefWidth="270.0" text="Telefon" />
-   <TextField layoutX="543.0" layoutY="186.0" prefHeight="35.0" prefWidth="270.0" />
+   <TextField fx:id="phone" layoutX="543.0" layoutY="186.0" prefHeight="35.0" prefWidth="270.0" />
    <Label layoutX="168.0" layoutY="230.0" prefWidth="270.0" text="Nachname" />
-   <TextField layoutX="167.0" layoutY="247.0" prefHeight="35.0" prefWidth="270.0" />
+   <TextField fx:id="surname" layoutX="167.0" layoutY="247.0" prefHeight="35.0" prefWidth="270.0" />
    <Label layoutX="168.0" layoutY="292.0" prefWidth="270.0" text="Passwort" />
-   <TextField layoutX="167.0" layoutY="308.0" prefHeight="35.0" prefWidth="270.0" />
+   <TextField fx:id="password" layoutX="167.0" layoutY="308.0" prefHeight="35.0" prefWidth="270.0" />
    <Label layoutX="168.0" layoutY="350.0" prefWidth="270.0" text="Email" />
-   <TextField layoutX="167.0" layoutY="367.0" prefHeight="35.0" prefWidth="270.0" />
-   <Label layoutX="545.0" layoutY="229.0" prefWidth="270.0" text="Firma" />
-   <TextField layoutX="544.0" layoutY="245.0" prefHeight="35.0" prefWidth="270.0" />
+   <TextField fx:id="email" layoutX="167.0" layoutY="367.0" prefHeight="35.0" prefWidth="270.0" />
    <Label layoutX="545.0" layoutY="287.0" prefWidth="270.0" text="Profilfoto" />
-   <TextField layoutX="544.0" layoutY="303.0" prefHeight="35.0" prefWidth="198.0" />
-   <Button id="normal-button" layoutX="741.0" layoutY="302.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="73.0" text="+" />
+   <TextField fx:id="profilePhotoFromLocal" layoutX="544.0" layoutY="303.0" prefHeight="35.0" prefWidth="198.0" />
+   <Button id="normal-button" fx:id="takeProfilePhotoButton" layoutX="741.0" layoutY="302.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="73.0" text="+" />
    <Label layoutX="167.0" layoutY="170.0" prefWidth="270.0" text="Vorname" />
-   <TextField layoutX="166.0" layoutY="186.0" prefHeight="35.0" prefWidth="270.0" />
+   <TextField fx:id="name" layoutX="166.0" layoutY="186.0" prefHeight="35.0" prefWidth="270.0" />
+   <RadioButton layoutX="545.0" layoutY="248.0" mnemonicParsing="false" text="mit URL">
+      <toggleGroup>
+         <ToggleGroup fx:id="selectMethode" />
+      </toggleGroup>
+   </RadioButton>
+   <RadioButton layoutX="643.0" layoutY="248.0" mnemonicParsing="false" selected="true" text="vom Computer" toggleGroup="$selectMethode" />
+   <TextField fx:id="profilePhotoFromUrl" layoutX="544.0" layoutY="342.0" prefHeight="35.0" prefWidth="270.0" />
 </AnchorPane>
