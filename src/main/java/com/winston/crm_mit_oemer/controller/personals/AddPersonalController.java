@@ -4,7 +4,7 @@ import com.winston.crm_mit_oemer.App;
 import com.winston.crm_mit_oemer.model.User;
 import com.winston.crm_mit_oemer.service.ImageHelper;
 import com.winston.crm_mit_oemer.util.CustomErrorAlert;
-import com.winston.crm_mit_oemer.util.StatusType;
+import com.winston.crm_mit_oemer.util.UserType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -15,7 +15,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class AddPersonalController implements Initializable {
@@ -75,7 +74,7 @@ public class AddPersonalController implements Initializable {
             System.out.println(profilePhoto);
         }
         //create Personal
-        User user = new User(name.getText(),surname.getText(),email.getText(),password.getText(), StatusType.PERSONAL,phone.getText(), profilePhoto, LocalDate.now());
+        User user = new User(name.getText(),surname.getText(),email.getText(),password.getText(), UserType.PERSONAL,phone.getText(), profilePhoto, LocalDate.now());
         System.out.println("Personal saved" + user);
         // App.setRoot("add-task-view");
 

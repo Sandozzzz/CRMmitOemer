@@ -1,21 +1,25 @@
 package com.winston.crm_mit_oemer.model;
 
-import com.winston.crm_mit_oemer.util.StatusType;
+import com.winston.crm_mit_oemer.util.CustomerType;
+import com.winston.crm_mit_oemer.util.UserType;
 
 import java.time.LocalDate;
 
-public class Customer extends Person{
+public class Customer extends Person {
 
-  private  String company;
+    private String company;
+    private CustomerType customerType;
 
-    public Customer(int id, String name, String surname, String email, StatusType status, String phone, byte[] profilePhoto, LocalDate createdDate, String company) {
+    public Customer(int id, String name, String surname, String email, UserType status, String phone, byte[] profilePhoto, LocalDate createdDate, String company, CustomerType customerType) {
         super(id, name, surname, email, status, phone, profilePhoto, createdDate);
         this.company = company;
+        this.customerType = customerType;
     }
 
-    public Customer(String name, String surname, String email, StatusType status, String phone, byte[] profilePhoto, LocalDate createdDate, String company) {
+    public Customer(String name, String surname, String email, UserType status, String phone, byte[] profilePhoto, LocalDate createdDate, String company, CustomerType customerType) {
         super(name, surname, email, status, phone, profilePhoto, createdDate);
         this.company = company;
+        this.customerType = customerType;
     }
 
     public String getCompany() {
@@ -26,8 +30,18 @@ public class Customer extends Person{
         this.company = company;
     }
 
+
+    public CustomerType getCustomerType() {
+        return customerType;
+    }
+
+    public void setCustomerType(CustomerType customerType) {
+        this.customerType = customerType;
+    }
+
     @Override
     public String toString() {
         return super.toString() + " Company: " + company;
     }
+
 }

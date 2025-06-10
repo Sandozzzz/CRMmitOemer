@@ -3,6 +3,8 @@
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
@@ -42,5 +44,12 @@
          </toggleGroup>
       </RadioButton>
       <RadioButton fx:id="fromLocalOption" layoutX="643.0" layoutY="258.0" mnemonicParsing="false" onAction="#getSelectedOption" selected="true" text="vom Computer" toggleGroup="$radioGroup" />
+      <MenuButton fx:id="statusMenuButton" layoutX="544.0" layoutY="367.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="270.0" text="Status">
+        <items>
+          <MenuItem mnemonicParsing="false" onAction="#onStatusMenuItemClicked" text="LEAD" />
+          <MenuItem mnemonicParsing="false" onAction="#onStatusMenuItemClicked" text="OPPORTUNITY" />
+            <MenuItem mnemonicParsing="false" onAction="#onStatusMenuItemClicked" text="CUSTOMER" />
+        </items>
+      </MenuButton>
    </children>
 </AnchorPane>

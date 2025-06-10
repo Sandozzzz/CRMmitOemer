@@ -1,6 +1,6 @@
 package com.winston.crm_mit_oemer.model;
 
-import com.winston.crm_mit_oemer.util.StatusType;
+import com.winston.crm_mit_oemer.util.UserType;
 
 import java.time.LocalDate;
 
@@ -8,14 +8,14 @@ public class User extends Person {
 private String password;
 private  boolean isNewUser;
 
-    public User(int id, String name, String surname, String email,String password, StatusType status, String phone, byte[] profilePhoto, LocalDate createdDate, boolean isNewUser) {
+    public User(int id, String name, String surname, String email, String password, UserType status, String phone, byte[] profilePhoto, LocalDate createdDate, boolean isNewUser) {
         super(id, name, surname, email, status, phone, profilePhoto, createdDate);
         this.password = password;
         this.isNewUser = isNewUser;
 
     }
 
-    public User(String name, String surname, String email,String password, StatusType status, String phone, byte[] profilePhoto, LocalDate createdDate) {
+    public User(String name, String surname, String email, String password, UserType status, String phone, byte[] profilePhoto, LocalDate createdDate) {
         super(name, surname, email, status, phone, profilePhoto, createdDate);
         this.password = password;
         this.isNewUser = true;

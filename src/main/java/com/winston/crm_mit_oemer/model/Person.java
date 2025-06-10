@@ -1,6 +1,6 @@
 package com.winston.crm_mit_oemer.model;
 
-import com.winston.crm_mit_oemer.util.StatusType;
+import com.winston.crm_mit_oemer.util.UserType;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -10,12 +10,12 @@ public class Person {
     private String name;
     private String surname;
     private String email;
-    private StatusType  status;
+    private UserType status;
     private String phone;
     private byte[] profilePhoto;
     private LocalDate createdDate;
 
-    public Person(int id, String name, String surname, String email, StatusType status, String phone, byte[] profilePhoto, LocalDate createdDate) {
+    public Person(int id, String name, String surname, String email, UserType status, String phone, byte[] profilePhoto, LocalDate createdDate) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -26,7 +26,7 @@ public class Person {
         this.createdDate = createdDate;
     }
 
-    public Person(String name, String surname, String email, StatusType status, String phone, byte[] profilePhoto, LocalDate createdDate) {
+    public Person(String name, String surname, String email, UserType status, String phone, byte[] profilePhoto, LocalDate createdDate) {
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -68,11 +68,11 @@ public class Person {
         this.email = email;
     }
 
-    public StatusType getStatus() {
+    public UserType getStatus() {
         return status;
     }
 
-    public void setStatus(StatusType status) {
+    public void setStatus(UserType status) {
         this.status = status;
     }
 
@@ -109,7 +109,7 @@ public class Person {
                 ", email='" + email + '\'' +
                 ", status=" + status +
                 ", phone='" + phone + '\'' +
-                ", profilePhoto=" + Arrays.toString(profilePhoto) +
+                ", profilePhoto=" + profilePhoto.length +
                 ", createdDate=" + createdDate;
     }
 }

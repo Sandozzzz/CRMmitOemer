@@ -1,7 +1,7 @@
 package com.winston.crm_mit_oemer.util;
 
-public enum StatusType {
-    ADMIN,
-    PERSONAL,
+public enum CustomerType {
+    LEAD,
+    OPPORTUNITY,
     CUSTOMER
 }

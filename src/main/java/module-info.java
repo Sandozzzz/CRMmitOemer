@@ -1,6 +1,7 @@
 module com.winston.crm_mit_oemer {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.sql;
 
 
     opens com.winston.crm_mit_oemer to javafx.fxml;
