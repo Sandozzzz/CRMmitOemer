@@ -19,26 +19,26 @@
          <Font name="System Bold" size="30.0" />
       </font>
    </Label>
-   <Button id="normal-button" layoutX="377.0" layoutY="434.0" mnemonicParsing="false" onAction="#onSaveCustomerClicked" prefHeight="10.0" prefWidth="270.0" text="Speichern" />
+   <Button id="normal-button" layoutX="377.0" layoutY="434.0" mnemonicParsing="false" onAction="#onSavePersonalClicked" prefHeight="10.0" prefWidth="270.0" text="Speichern" />
    <Button id="cancel-button" layoutX="377.0" layoutY="479.0" mnemonicParsing="false" onAction="#onCancelClicked" prefHeight="25.0" prefWidth="270.0" stylesheets="@../styles/main-style.css" text="Abbrechen" />
    <Label layoutX="544.0" layoutY="170.0" prefWidth="270.0" text="Telefon" />
    <TextField fx:id="phone" layoutX="543.0" layoutY="186.0" prefHeight="35.0" prefWidth="270.0" />
-   <Label layoutX="168.0" layoutY="230.0" prefWidth="270.0" text="Nachname" />
+   <Label layoutX="168.0" layoutY="230.0" prefWidth="270.0" text="Nachname*" />
    <TextField fx:id="surname" layoutX="167.0" layoutY="247.0" prefHeight="35.0" prefWidth="270.0" />
-   <Label layoutX="168.0" layoutY="292.0" prefWidth="270.0" text="Passwort" />
+   <Label layoutX="168.0" layoutY="292.0" prefWidth="270.0" text="Passwort*" />
    <TextField fx:id="password" layoutX="167.0" layoutY="308.0" prefHeight="35.0" prefWidth="270.0" />
-   <Label layoutX="168.0" layoutY="350.0" prefWidth="270.0" text="Email" />
+   <Label layoutX="168.0" layoutY="350.0" prefWidth="270.0" text="Email*" />
    <TextField fx:id="email" layoutX="167.0" layoutY="367.0" prefHeight="35.0" prefWidth="270.0" />
    <Label layoutX="545.0" layoutY="287.0" prefWidth="270.0" text="Profilfoto" />
    <TextField fx:id="profilePhotoFromLocal" layoutX="544.0" layoutY="303.0" prefHeight="35.0" prefWidth="198.0" />
-   <Button id="normal-button" fx:id="takeProfilePhotoButton" layoutX="741.0" layoutY="302.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="73.0" text="+" />
-   <Label layoutX="167.0" layoutY="170.0" prefWidth="270.0" text="Vorname" />
+   <Button id="normal-button" fx:id="takeProfilePhotoButton" layoutX="741.0" layoutY="302.0" mnemonicParsing="false" onAction="#onTakeProfilePhotoClicked" prefHeight="35.0" prefWidth="73.0" text="+" />
+   <Label layoutX="167.0" layoutY="170.0" prefWidth="270.0" text="Vorname*" />
    <TextField fx:id="name" layoutX="166.0" layoutY="186.0" prefHeight="35.0" prefWidth="270.0" />
-   <RadioButton layoutX="545.0" layoutY="248.0" mnemonicParsing="false" text="mit URL">
+   <RadioButton fx:id="urlOption" layoutX="545.0" layoutY="248.0" mnemonicParsing="false" onAction="#getSelectedOption" text="mit URL">
       <toggleGroup>
-         <ToggleGroup fx:id="selectMethode" />
+         <ToggleGroup fx:id="radioGroup" />
       </toggleGroup>
    </RadioButton>
-   <RadioButton layoutX="643.0" layoutY="248.0" mnemonicParsing="false" selected="true" text="vom Computer" toggleGroup="$selectMethode" />
+   <RadioButton fx:id="fromLocalOption" layoutX="643.0" layoutY="248.0" mnemonicParsing="false" onAction="#getSelectedOption" selected="true" text="vom Computer" toggleGroup="$radioGroup" />
    <TextField fx:id="profilePhotoFromUrl" layoutX="544.0" layoutY="342.0" prefHeight="35.0" prefWidth="270.0" />
 </AnchorPane>

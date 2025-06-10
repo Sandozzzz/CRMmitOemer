@@ -3,6 +3,7 @@ package com.winston.crm_mit_oemer.controller.customers;
 import com.winston.crm_mit_oemer.App;
 import com.winston.crm_mit_oemer.model.Customer;
 import com.winston.crm_mit_oemer.service.ImageHelper;
+import com.winston.crm_mit_oemer.util.CustomErrorAlert;
 import com.winston.crm_mit_oemer.util.StatusType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,9 +13,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
-import java.nio.file.Files;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.ResourceBundle;
@@ -51,25 +50,27 @@ public class AddCustomerController implements Initializable {
     @FXML
     protected void onSaveCustomerClicked() throws IOException {
         if (name.getText().isEmpty() || surname.getText().isEmpty() || company.getText().isEmpty() || email.getText().isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Bitte füllen Sie die erforderlichen Angaben aus!");
-            alert.showAndWait();
+            CustomErrorAlert.showAlert("Bitte füllen Sie die erforderlichen Angaben aus!");
             return;
         }
         if (profilePhotoFromUrl.getText().isEmpty() && profilePhotoFromLocal.getText().isEmpty()) {
 profilePhoto = null;
         }
+
+        if(!email.getText().matches("^[A-Za-z0-9._]+@[A-Za-z0-9]+\\.[A-Za-z0-9]{2,6}$")){
+            CustomErrorAlert.showAlert("Die Email ist ungültig!");
+        }
+
+        if(!phone.getText().isEmpty() && !phone.getText().matches("\\+?[0-9]{1,3}?[-.\\s]?\\(?[0-9]{1,4}?\\)?[-.\\s]?[0-9]{1,4}[-.\\s]?[0-9]{1,9}")){
+            CustomErrorAlert.showAlert("Telefonnummer ist ungültig!");
+            return;
+        }
             if (!profilePhotoFromUrl.getText().isEmpty()) {
               profilePhoto =  ImageHelper.getProfilePhotoFromUrl(profilePhotoFromUrl.getText());
                 System.out.println(profilePhoto);
         }
-        Customer customer = new Customer(name.getText(), name.getText(), email.getText(), StatusType.CUSTOMER, phone.getText(),profilePhoto, LocalDate.now(), company.getText());
-        System.out.println(customer);
-String ss = getSelectedOption();
-        System.out.println(ss);
-        System.out.println("Customer saved");
+        Customer customer = new Customer(name.getText(), surname.getText(), email.getText(), StatusType.CUSTOMER, phone.getText(),profilePhoto, LocalDate.now(), company.getText());
+        System.out.println("Customer saved"+customer);
         // App.setRoot("add-task-view");
 
     }
@@ -98,7 +99,7 @@ String ss = getSelectedOption();
                 break;
         }
 
-        return selected != null ? selected.getText() : "Nothing is selected";
+        return selected.getText();
     }
 
     @Override
