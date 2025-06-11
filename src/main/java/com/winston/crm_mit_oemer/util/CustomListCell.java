@@ -32,8 +32,11 @@ public class CustomListCell extends ListCell<Customer> {
 
 
         nameLabel = new Label();
+        nameLabel.setId("cell-label");
         nameLabel.setStyle("-fx-font-weight: bold");
+
         companyLabel = new Label();
+        companyLabel.setId("cell-label");
 
         vbox = new VBox(nameLabel, companyLabel);
         vbox.setSpacing(2);
@@ -48,6 +51,7 @@ public class CustomListCell extends ListCell<Customer> {
         super.updateItem(customer, empty);
         if (empty || customer == null) {
             setGraphic(null);
+            setBackground(null);
         } else {
             if(customer.getProfilePhoto() != null){
                 Image image = new Image(new ByteArrayInputStream(customer.getProfilePhoto()));
@@ -60,6 +64,7 @@ public class CustomListCell extends ListCell<Customer> {
             nameLabel.setText(customer.getName()+" "+customer.getSurname());
             companyLabel.setText(customer.getCompany());
             setGraphic(content);
+            setId("list-cell");
         }
     }
 
