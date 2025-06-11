@@ -74,7 +74,11 @@ public class AddCustomerController implements Initializable {
         }
         Customer customer = new Customer(name.getText(), surname.getText(), email.getText(), UserType.CUSTOMER, phone.getText(), profilePhoto, LocalDate.now(), company.getText(), customerType);
         try {
-            customerManager.save(customer);
+           boolean result = customerManager.save(customer);
+
+           if (result) {
+               clearFields();
+           }
         } catch (SQLException e) {
             CustomErrorAlert.showAlert("Fehler bei Speicherung des Customers! \n"+e.getMessage());
             e.printStackTrace();
@@ -87,8 +91,8 @@ public class AddCustomerController implements Initializable {
 
     @FXML
     protected void onCancelClicked() throws IOException {
+        clearFields();
         App.setRoot("customer-management-view");
-
     }
 
     @FXML
@@ -141,6 +145,18 @@ public class AddCustomerController implements Initializable {
         String itemText = clickedItem.getText();
         statusMenuButton.setText(itemText);
         customerType = CustomerType.valueOf(itemText);
+    }
+
+    private void clearFields() {
+        name.clear();
+        surname.clear();
+        company.clear();
+        email.clear();
+        phone.clear();
+        profilePhotoFromUrl.clear();
+        profilePhotoFromLocal.clear();
+        profilePhoto = null;
+        customerType = null;
     }
 
 }

@@ -10,6 +10,9 @@ public class Customer extends Person {
     private String company;
     private CustomerType customerType;
 
+    public Customer() {
+        super();
+    }
     public Customer(int id, String name, String surname, String email, UserType status, String phone, byte[] profilePhoto, LocalDate createdDate, String company, CustomerType customerType) {
         super(id, name, surname, email, status, phone, profilePhoto, createdDate);
         this.company = company;

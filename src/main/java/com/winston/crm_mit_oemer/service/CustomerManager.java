@@ -1,9 +1,14 @@
 package com.winston.crm_mit_oemer.service;
 
 import com.winston.crm_mit_oemer.model.Customer;
+import com.winston.crm_mit_oemer.util.CustomerType;
 import com.winston.crm_mit_oemer.util.ICRUD;
+import com.winston.crm_mit_oemer.util.UserType;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerManager implements ICRUD<Customer> {
@@ -39,7 +44,17 @@ public class CustomerManager implements ICRUD<Customer> {
 
     @Override
     public List<Customer> findAll() throws SQLException {
-        return List.of();
+        List<Customer> customers = new ArrayList<Customer>();
+        final String SQL = "SELECT * FROM " + TABLE_NAME;
+        try(Connection con = ConnectionFactory.getConnection(); Statement stmt = con.prepareStatement(SQL)){
+          ResultSet resultSet =  stmt.executeQuery(SQL);
+
+          while (resultSet.next()) {
+              customers.add(create(resultSet));
+          }
+        }
+
+        return customers;
     }
 
     @Override
@@ -59,6 +74,17 @@ public class CustomerManager implements ICRUD<Customer> {
 
     @Override
     public Customer create(ResultSet rs) throws SQLException {
-        return null;
+        Customer cus = new Customer();
+        cus.setId(rs.getInt("id"));
+        cus.setName(rs.getString("name"));
+        cus.setSurname(rs.getString("surname"));
+        cus.setEmail(rs.getString("email"));
+        cus.setStatus(UserType.valueOf(rs.getString("status")));
+        cus.setPhone(rs.getString("phone"));
+        cus.setCompany(rs.getString("company"));
+        cus.setCreatedDate(rs.getDate("createdDate").toLocalDate());
+        cus.setProfilePhoto(rs.getBytes("profilePhoto"));
+        cus.setCustomerType(CustomerType.valueOf(rs.getString("customerType")));
+        return cus;
     }
 }

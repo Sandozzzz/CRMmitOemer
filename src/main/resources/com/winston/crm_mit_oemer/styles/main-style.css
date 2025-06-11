@@ -23,3 +23,9 @@ Button {
     -fx-background-color: #332D56;
     -fx-text-fill: #E3EEB2;
 }
+
+ListView {
+    /*-fx-background-color: transparent;*/
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}

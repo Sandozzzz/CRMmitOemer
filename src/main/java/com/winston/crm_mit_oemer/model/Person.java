@@ -3,7 +3,6 @@ package com.winston.crm_mit_oemer.model;
 import com.winston.crm_mit_oemer.util.UserType;
 
 import java.time.LocalDate;
-import java.util.Arrays;
 
 public class Person {
     private int id;
@@ -34,6 +33,9 @@ public class Person {
         this.phone = phone;
         this.profilePhoto = profilePhoto;
         this.createdDate = createdDate;
+    }
+
+    public Person() {
     }
 
     public int getId() {
@@ -109,7 +111,6 @@ public class Person {
                 ", email='" + email + '\'' +
                 ", status=" + status +
                 ", phone='" + phone + '\'' +
-                ", profilePhoto=" + profilePhoto.length +
                 ", createdDate=" + createdDate;
     }
 }
