@@ -22,10 +22,10 @@ import java.util.ResourceBundle;
 public class CustomerManagementController implements Initializable {
 
     @FXML
-    private ListView<Customer> customerListView;
+    private ListView<Person> customerListView;
 
     CustomerManager customerManager = new CustomerManager();
-    ObservableList<Customer> observableList;
+    ObservableList<Person> observableList;
 
 
     @FXML

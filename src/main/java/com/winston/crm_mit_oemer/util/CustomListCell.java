@@ -3,6 +3,7 @@ package com.winston.crm_mit_oemer.util;
 
 import com.winston.crm_mit_oemer.model.Customer;
 import com.winston.crm_mit_oemer.model.Person;
+import com.winston.crm_mit_oemer.model.User;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -14,12 +15,12 @@ import javafx.scene.shape.Circle;
 import java.io.ByteArrayInputStream;
 import java.util.Objects;
 
-public class CustomListCell extends ListCell<Customer> {
+public class CustomListCell extends ListCell<Person> {
     private final HBox content;
     private final ImageView imageView;
     private final VBox vbox;
     private final Label nameLabel;
-    private final Label companyLabel;
+    private final Label subLabel;
 
     public CustomListCell() {
         imageView = new ImageView();
@@ -35,10 +36,10 @@ public class CustomListCell extends ListCell<Customer> {
         nameLabel.setId("cell-label");
         nameLabel.setStyle("-fx-font-weight: bold");
 
-        companyLabel = new Label();
-        companyLabel.setId("cell-label");
+        subLabel = new Label();
+        subLabel.setId("cell-label");
 
-        vbox = new VBox(nameLabel, companyLabel);
+        vbox = new VBox(nameLabel, subLabel);
         vbox.setSpacing(2);
         vbox.setAlignment(Pos.CENTER_LEFT);
         content = new HBox(imageView, vbox);
@@ -47,22 +48,24 @@ public class CustomListCell extends ListCell<Customer> {
     }
 
     @Override
-    protected void updateItem(Customer customer, boolean empty) {
-        super.updateItem(customer, empty);
-        if (empty || customer == null) {
+    protected void updateItem(Person person, boolean empty) {
+        super.updateItem(person, empty);
+        if (empty || person == null) {
             setGraphic(null);
             setBackground(null);
         } else {
-            if(customer.getProfilePhoto() != null){
-                Image image = new Image(new ByteArrayInputStream(customer.getProfilePhoto()));
+            if(person.getProfilePhoto() != null){
+                Image image = new Image(new ByteArrayInputStream(person.getProfilePhoto()));
                 imageView.setImage(image);
             }else {
                 imageView.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream(
                         "/com/winston/crm_mit_oemer/assets/user.png"))));
 
             }
-            nameLabel.setText(customer.getName()+" "+customer.getSurname());
-            companyLabel.setText(customer.getCompany());
+            nameLabel.setText(person.getName()+" "+person.getSurname());
+            if(person instanceof Customer){ subLabel.setText( ((Customer) person).getCompany());}
+            if(person instanceof User){ subLabel.setText( person.getEmail());}
+
             setGraphic(content);
             setId("list-cell");
         }

@@ -16,10 +16,7 @@ public class CustomerManager implements ICRUD<Customer> {
 
     @Override
     public boolean save(Customer customer) throws SQLException {
-        if (customer.getId() > 0) {
-            //TODO: Update customer
-        }
-        else {
+
             final String SQL = "INSERT INTO " + TABLE_NAME + "(id, name, surname, email, status, phone, profilePhoto, createdDate, company, customerType ) VALUES (NULL,?,?,?,?,?,?,?,?,?)";
 
             try(Connection con = ConnectionFactory.getConnection();
@@ -37,9 +34,6 @@ public class CustomerManager implements ICRUD<Customer> {
 
                 return stmt.executeUpdate() > 0;
             }
-        }
-
-        return false;
     }
 
     @Override
@@ -59,16 +53,44 @@ public class CustomerManager implements ICRUD<Customer> {
 
     @Override
     public boolean update(Customer customer) throws SQLException {
-        return false;
+        final String SQL = "UPDATE " + TABLE_NAME + " SET name=?, surname=?, email=?, status=?, phone=?, profilePhoto=?, createdDate=?, company=?, customerType=? WHERE id=?";
+        try ( Connection con = ConnectionFactory.getConnection();
+              PreparedStatement stmt = con.prepareStatement(SQL)){
+            stmt.setString(1, customer.getName());
+            stmt.setString(2, customer.getSurname());
+            stmt.setString(3, customer.getEmail());
+            stmt.setString(4, customer.getStatus().name());
+            stmt.setString(5, customer.getPhone());
+            stmt.setBytes(6, customer.getProfilePhoto());
+            stmt.setDate(7, Date.valueOf(customer.getCreatedDate()));
+            stmt.setString(8, customer.getCompany());
+            stmt.setString(9,customer.getCustomerType().name());
+            stmt.setInt(10, customer.getId());
+            return stmt.executeUpdate() > 0;
+        }
     }
 
     @Override
     public boolean delete(Customer customer) throws SQLException {
-        return false;
+        final String SQL = "DELETE FROM " + TABLE_NAME + " WHERE id=?";
+        try ( Connection con = ConnectionFactory.getConnection();
+              PreparedStatement stmt = con.prepareStatement(SQL)){
+            stmt.setInt(1, customer.getId());
+            return stmt.executeUpdate() > 0;
+        }
     }
 
     @Override
     public Customer findById(int id) throws SQLException {
+        final String SQL = "SELECT * FROM " + TABLE_NAME + " WHERE id=?";
+        try ( Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = con.prepareStatement(SQL)){
+            stmt.setInt(1, id);
+            ResultSet resultSet = stmt.executeQuery();
+            if (resultSet.next()) {
+                return create(resultSet);
+            }
+        }
         return null;
     }
 
