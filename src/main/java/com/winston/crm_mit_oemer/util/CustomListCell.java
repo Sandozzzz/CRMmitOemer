@@ -4,6 +4,7 @@ package com.winston.crm_mit_oemer.util;
 import com.winston.crm_mit_oemer.model.Customer;
 import com.winston.crm_mit_oemer.model.Person;
 import com.winston.crm_mit_oemer.model.User;
+import com.winston.crm_mit_oemer.service.ImageHelper;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -31,7 +32,6 @@ public class CustomListCell extends ListCell<Person> {
         imageView.setClip(clip);
 
 
-
         nameLabel = new Label();
         nameLabel.setId("cell-label");
         nameLabel.setStyle("-fx-font-weight: bold");
@@ -54,17 +54,14 @@ public class CustomListCell extends ListCell<Person> {
             setGraphic(null);
             setBackground(null);
         } else {
-            if(person.getProfilePhoto() != null){
-                Image image = new Image(new ByteArrayInputStream(person.getProfilePhoto()));
-                imageView.setImage(image);
-            }else {
-                imageView.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream(
-                        "/com/winston/crm_mit_oemer/assets/user.png"))));
-
+            imageView.setImage(ImageHelper.changeToImage(person.getProfilePhoto()));
+            nameLabel.setText(person.getName() + " " + person.getSurname());
+            if (person instanceof Customer) {
+                subLabel.setText(((Customer) person).getCompany());
             }
-            nameLabel.setText(person.getName()+" "+person.getSurname());
-            if(person instanceof Customer){ subLabel.setText( ((Customer) person).getCompany());}
-            if(person instanceof User){ subLabel.setText( person.getEmail());}
+            if (person instanceof User) {
+                subLabel.setText(person.getEmail());
+            }
 
             setGraphic(content);
             setId("list-cell");

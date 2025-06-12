@@ -1,6 +1,7 @@
 package com.winston.crm_mit_oemer.controller.personals;
 
 import com.winston.crm_mit_oemer.App;
+import com.winston.crm_mit_oemer.controller.DetailViewController;
 import com.winston.crm_mit_oemer.model.Customer;
 import com.winston.crm_mit_oemer.model.Person;
 import com.winston.crm_mit_oemer.model.User;
@@ -10,8 +11,12 @@ import com.winston.crm_mit_oemer.util.CustomListCell;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ListView;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -37,10 +42,24 @@ public class PersonalManagementController implements Initializable {
             personalListView.setItems(observableList);
 
             personalListView.setCellFactory(param -> new CustomListCell());
+            personalListView.getSelectionModel().selectedItemProperty().addListener((observable, person, newValue) -> {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/winston/crm_mit_oemer/views/detail-view.fxml"));
+                    Parent root = loader.load();
+                    DetailViewController controller = loader.getController();
+                    controller.setPerson(newValue);
+                    Scene currentScene = personalListView.getScene();
+                    currentScene.setRoot(root);
+
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
         } catch (SQLException e) {
             CustomErrorAlert.showAlert("Ein Fehler ist aufgetreten! \n" + e.getMessage());
         }
     }
+
     @FXML
     protected void onAddPersonalClicked() throws IOException {
         App.setRoot("personal-add-view");
