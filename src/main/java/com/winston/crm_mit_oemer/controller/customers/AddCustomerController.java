@@ -135,7 +135,6 @@ public class AddCustomerController implements Initializable {
         if (selectedFile != null) {
             profilePhotoFromLocal.setText(selectedFile.getName());
             profilePhoto = ImageHelper.loadImageBytesFromFile(selectedFile.getAbsolutePath());
-            System.out.println(Arrays.toString(profilePhoto));
         }
     }
 

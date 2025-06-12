@@ -3,7 +3,8 @@ package com.winston.crm_mit_oemer.controller.personals;
 import com.winston.crm_mit_oemer.App;
 import com.winston.crm_mit_oemer.model.Customer;
 import com.winston.crm_mit_oemer.model.Person;
-import com.winston.crm_mit_oemer.service.CustomerManager;
+import com.winston.crm_mit_oemer.model.User;
+import com.winston.crm_mit_oemer.service.UserManager;
 import com.winston.crm_mit_oemer.util.CustomErrorAlert;
 import com.winston.crm_mit_oemer.util.CustomListCell;
 import javafx.collections.FXCollections;
@@ -24,15 +25,15 @@ public class PersonalManagementController implements Initializable {
     private ListView<Person> personalListView;
 
 
-    CustomerManager customerManager = new CustomerManager();
+    UserManager userManager = new UserManager();
     ObservableList<Person> observableList;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            List<Customer> customers = customerManager.findAll();
-            System.out.println(customers);
-            observableList = FXCollections.observableArrayList(customers);
+            List<User> personals = userManager.findAll();
+            System.out.println(personals);
+            observableList = FXCollections.observableArrayList(personals);
             personalListView.setItems(observableList);
 
             personalListView.setCellFactory(param -> new CustomListCell());

@@ -3,6 +3,7 @@ package com.winston.crm_mit_oemer.controller.personals;
 import com.winston.crm_mit_oemer.App;
 import com.winston.crm_mit_oemer.model.User;
 import com.winston.crm_mit_oemer.service.ImageHelper;
+import com.winston.crm_mit_oemer.service.UserManager;
 import com.winston.crm_mit_oemer.util.CustomErrorAlert;
 import com.winston.crm_mit_oemer.util.UserType;
 import javafx.fxml.FXML;
@@ -14,6 +15,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
@@ -34,18 +36,11 @@ public class AddPersonalController implements Initializable {
     private Button takeProfilePhotoButton;
     @FXML
     private TextField profilePhotoFromUrl;
-
-    @FXML
-    private RadioButton urlOption;
-
-    @FXML
-    private RadioButton fromLocalOption;
-
     @FXML
     private ToggleGroup radioGroup;
 
     byte[] profilePhoto;
-
+    UserManager userManager = new UserManager();
 
     @FXML
     protected void onSavePersonalClicked() throws IOException {
@@ -75,6 +70,17 @@ public class AddPersonalController implements Initializable {
         }
         //create Personal
         User user = new User(name.getText(),surname.getText(),email.getText(),password.getText(), UserType.PERSONAL,phone.getText(), profilePhoto, LocalDate.now());
+        try {
+            boolean result = userManager.save(user);
+
+            if (result) {
+                clearFields();
+            }
+        } catch (SQLException e) {
+            CustomErrorAlert.showAlert("Fehler bei Speicherung des Users! \n"+e.getMessage());
+            e.printStackTrace();
+            return;
+        }
         System.out.println("Personal saved" + user);
         // App.setRoot("add-task-view");
 
@@ -124,8 +130,18 @@ public class AddPersonalController implements Initializable {
         if (selectedFile != null) {
             profilePhotoFromLocal.setText(selectedFile.getName());
             profilePhoto = ImageHelper.loadImageBytesFromFile(selectedFile.getAbsolutePath());
-           // System.out.println(Arrays.toString(profilePhoto));
         }
+    }
+
+    private void clearFields() {
+        name.clear();
+        surname.clear();
+        password.clear();
+        email.clear();
+        phone.clear();
+        profilePhotoFromUrl.clear();
+        profilePhotoFromLocal.clear();
+        profilePhoto = null;
     }
 
 
