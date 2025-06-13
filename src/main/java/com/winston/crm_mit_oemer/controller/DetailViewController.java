@@ -1,16 +1,22 @@
 package com.winston.crm_mit_oemer.controller;
 
 import com.winston.crm_mit_oemer.App;
+import com.winston.crm_mit_oemer.controller.personals.AddPersonalController;
 import com.winston.crm_mit_oemer.model.Customer;
 import com.winston.crm_mit_oemer.model.Person;
 import com.winston.crm_mit_oemer.model.User;
 import com.winston.crm_mit_oemer.service.ImageHelper;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
+import org.w3c.dom.events.Event;
 
 import java.io.IOException;
 import java.util.Locale;
@@ -28,6 +34,8 @@ public class DetailViewController {
     private Label detail;
     @FXML
     private TextArea note;
+    @FXML
+    private Button editButton;
 
     Person person;
 
@@ -47,8 +55,7 @@ public class DetailViewController {
         if (person instanceof Customer) {
 
             detail.setText(((Customer) person).getCompany());
-        }
-        else{
+        } else {
             detail.setText(person.getStatus().name().toLowerCase());
         }
     }
@@ -63,5 +70,21 @@ public class DetailViewController {
     protected void onCancelClicked() throws IOException {
         App.setRoot("main-view");
 
+    }
+
+    @FXML
+    protected void onEditButtonClicked() throws IOException {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/winston/crm_mit_oemer/views/personal-add-view.fxml"));
+            Parent root = loader.load();
+            AddPersonalController controller = loader.getController();
+            controller.setPerson((User) person);
+
+            Scene currentScene = editButton.getScene();
+            currentScene.setRoot(root);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -39,57 +39,104 @@ public class AddPersonalController implements Initializable {
     @FXML
     private ToggleGroup radioGroup;
 
+    User user;
     byte[] profilePhoto;
+    boolean isEditMode = false;
+
     UserManager userManager = new UserManager();
+
+
+    public void setPerson(User user) {
+        this.user = user;
+        updateView();
+        isEditMode = true;
+    }
+
+    private void updateView() {
+        name.setText(user.getName());
+        surname.setText(user.getSurname());
+        email.setText(user.getEmail());
+        phone.setText(user.getPhone());
+        profilePhoto = user.getProfilePhoto();
+        if (profilePhoto != null) profilePhotoFromLocal.setText("Profile_Photo.png");
+        password.setDisable(true);
+
+
+    }
+
 
     @FXML
     protected void onSavePersonalClicked() throws IOException {
-        if (name.getText().isEmpty() || surname.getText().isEmpty() || password.getText().isEmpty() || email.getText().isEmpty()) {
+        if (name.getText().isEmpty() || surname.getText().isEmpty() || email.getText().isEmpty()) {
             CustomErrorAlert.showAlert("Bitte füllen Sie die erforderlichen Angaben aus!");
             return;
         }
-        if(password.getText().length() < 6) {
+        if (!isEditMode && password.getText().isEmpty() && password.getText().length() < 6) {
             CustomErrorAlert.showAlert("Das Passwort ist zu kurz!");
             return;
         }
-        if(!email.getText().matches("^[A-Za-z0-9._]+@[A-Za-z0-9]+\\.[A-Za-z0-9]{2,6}$")){
+        if (!email.getText().matches("^[A-Za-z0-9._]+@[A-Za-z0-9]+\\.[A-Za-z0-9]{2,6}$")) {
             CustomErrorAlert.showAlert("Die Email ist ungültig!");
-        return;
+            return;
         }
-        if(!phone.getText().isEmpty() && !phone.getText().matches("\\+?[0-9]{1,3}?[-.\\s]?\\(?[0-9]{1,4}?\\)?[-.\\s]?[0-9]{1,4}[-.\\s]?[0-9]{1,9}")){
+        if (!phone.getText().isEmpty() && !phone.getText().matches("\\+?[0-9]{1,3}?[-.\\s]?\\(?[0-9]{1,4}?\\)?[-.\\s]?[0-9]{1,4}[-.\\s]?[0-9]{1,9}")) {
             CustomErrorAlert.showAlert("Telefonnummer ist ungültig!");
-        return;
+            return;
         }
 
-        if (profilePhotoFromUrl.getText().isEmpty() && profilePhotoFromLocal.getText().isEmpty()) {
+        if (!isEditMode && profilePhotoFromUrl.getText().isEmpty() && profilePhotoFromLocal.getText().isEmpty()) {
             profilePhoto = null;
         }
         if (!profilePhotoFromUrl.getText().isEmpty()) {
-            profilePhoto =  ImageHelper.getProfilePhotoFromUrl(profilePhotoFromUrl.getText());
-            System.out.println(profilePhoto);
+            profilePhoto = ImageHelper.getProfilePhotoFromUrl(profilePhotoFromUrl.getText());
         }
-        //create Personal
-        User user = new User(name.getText(),surname.getText(),email.getText(),password.getText(), UserType.PERSONAL,phone.getText(), profilePhoto, LocalDate.now());
-        try {
-            boolean result = userManager.save(user);
+        if (!isEditMode) {
+            //create a new Personal
+            user = new User(name.getText(), surname.getText(), email.getText(), password.getText(), UserType.PERSONAL, phone.getText(), profilePhoto, LocalDate.now());
+            try {
+                boolean result = userManager.save(user);
 
-            if (result) {
-                clearFields();
+                if (result) {
+                    clearFields();
+                }
+            } catch (SQLException e) {
+                CustomErrorAlert.showAlert("Fehler bei Speicherung des Users! \n" + e.getMessage());
+                e.printStackTrace();
+                return;
             }
-        } catch (SQLException e) {
-            CustomErrorAlert.showAlert("Fehler bei Speicherung des Users! \n"+e.getMessage());
-            e.printStackTrace();
-            return;
-        }
-        System.out.println("Personal saved" + user);
-        // App.setRoot("add-task-view");
 
+        } else {
+            //update the Personal
+            user.setName(name.getText());
+            user.setSurname(surname.getText());
+            user.setEmail(email.getText());
+            user.setPhone(phone.getText());
+            user.setProfilePhoto(profilePhoto);
+            try {
+                boolean result = userManager.update(user);
+
+                if (result) {
+                    clearFields();
+                    App.setRoot("personal-management-view");
+                }
+            } catch (SQLException e) {
+                CustomErrorAlert.showAlert("Fehler bei Speicherung des Users! \n" + e.getMessage());
+                e.printStackTrace();
+                return;
+            }
+
+
+        }
+
+        System.out.println("Personal saved" + user);
     }
+
     @FXML
     protected void onCancelClicked() throws IOException {
         App.setRoot("personal-management-view");
 
     }
+
     @FXML
     protected String getSelectedOption() {
         RadioButton selected = (RadioButton) radioGroup.getSelectedToggle();

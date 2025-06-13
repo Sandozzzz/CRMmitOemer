@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
@@ -21,7 +22,7 @@
             </ImageView>
             <Label fx:id="name" alignment="CENTER" prefHeight="35.0" prefWidth="235.0" text="Name Surname">
                <font>
-                  <Font size="18.0" />
+                  <Font name="System Bold" size="24.0" />
                </font>
             </Label>
             <Label fx:id="email" alignment="CENTER" prefHeight="35.0" prefWidth="235.0" text="email@crm.com">
@@ -43,18 +44,22 @@
       </VBox>
       <Label alignment="CENTER" layoutX="478.0" layoutY="409.0" text="Individuelle Notiz" AnchorPane.leftAnchor="450.0" AnchorPane.rightAnchor="450.0" />
       <TextArea fx:id="note" layoutX="350.0" layoutY="428.0" prefHeight="163.0" prefWidth="350.0" AnchorPane.leftAnchor="350.0" AnchorPane.rightAnchor="350.0" />
-      <HBox alignment="CENTER" layoutX="349.0" layoutY="345.0" prefHeight="43.0" prefWidth="350.0" spacing="25.0" AnchorPane.leftAnchor="350.0" AnchorPane.rightAnchor="350.0">
+      <HBox alignment="CENTER" layoutX="292.0" layoutY="345.0" prefHeight="43.0" prefWidth="437.0" spacing="25.0" AnchorPane.leftAnchor="292.0" AnchorPane.rightAnchor="292.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" text="Email Senden" />
-            <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="93.0" text="Bearbeiten" />
-            <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" text="Anrufen" />
+            <Button id="normal-button" mnemonicParsing="false" prefHeight="35.0" prefWidth="122.0" text="Email Senden" />
+            <Button id="normal-button" fx:id="editButton" mnemonicParsing="false" onAction="#onEditButtonClicked" prefHeight="35.0" prefWidth="122.0" text="Bearbeiten" />
+            <Button id="normal-button" mnemonicParsing="false" prefHeight="35.0" prefWidth="122.0" text="Anrufen" />
          </children>
       </HBox>
       <HBox alignment="CENTER" layoutX="349.0" layoutY="606.0" prefHeight="43.0" prefWidth="350.0" spacing="25.0" AnchorPane.leftAnchor="350.0" AnchorPane.rightAnchor="350.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#onSaveButtonClicked" prefHeight="35.0" prefWidth="100.0" text="Speichern" />
-            <Button mnemonicParsing="false" onAction="#onCancelClicked" prefHeight="35.0" prefWidth="100.0" text="Abbrechen" />
+            <Button id="normal-button" mnemonicParsing="false" onAction="#onSaveButtonClicked" prefHeight="35.0" prefWidth="120.0" text="Speichern" />
+            <Button id="cancel-button" mnemonicParsing="false" onAction="#onCancelClicked" prefHeight="35.0" prefWidth="120.0" text="Abbrechen" />
          </children>
       </HBox>
    </children>
+   <stylesheets>
+      <URL value="@../styles/main-style.css" />
+      <URL value="@../styles/login-style.css" />
+   </stylesheets>
 </AnchorPane>

@@ -1,5 +1,5 @@
 AnchorPane {
-    -fx-background-color: #71C0BB;
+    -fx-background-color: linear-gradient(white, white, white, whitesmoke, rgba(149, 223, 219, 0.75));
 }
 
 Button {
