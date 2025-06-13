@@ -2,6 +2,7 @@ package com.winston.crm_mit_oemer.controller.customers;
 
 import com.winston.crm_mit_oemer.App;
 import com.winston.crm_mit_oemer.model.Customer;
+import com.winston.crm_mit_oemer.model.User;
 import com.winston.crm_mit_oemer.service.CustomerManager;
 import com.winston.crm_mit_oemer.service.ImageHelper;
 import com.winston.crm_mit_oemer.util.CustomErrorAlert;
@@ -19,7 +20,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class AddCustomerController implements Initializable {
@@ -45,10 +45,34 @@ public class AddCustomerController implements Initializable {
     @FXML
     private ToggleGroup radioGroup;
 
+    Customer customer;
     byte[] profilePhoto;
+    boolean isEditMode = false;
+    boolean saveResult = false;
     CustomerType customerType;
 
     CustomerManager customerManager = new CustomerManager();
+
+
+    public void setPerson(Customer user) {
+        this.customer = user;
+        updateView();
+        isEditMode = true;
+    }
+
+    private void updateView() {
+        name.setText(customer.getName());
+        surname.setText(customer.getSurname());
+        email.setText(customer.getEmail());
+        phone.setText(customer.getPhone());
+        company.setText(customer.getCompany());
+        profilePhoto = customer.getProfilePhoto();
+        if (profilePhoto != null) profilePhotoFromLocal.setText("Profile_Photo.png");
+        statusMenuButton.setText(customer.getCustomerType().name());
+
+
+    }
+
 
     @FXML
     protected void onSaveCustomerClicked() throws IOException {
@@ -56,7 +80,7 @@ public class AddCustomerController implements Initializable {
             CustomErrorAlert.showAlert("Bitte füllen Sie die erforderlichen Angaben aus!");
             return;
         }
-        if (profilePhotoFromUrl.getText().isEmpty() && profilePhotoFromLocal.getText().isEmpty()) {
+        if (!isEditMode && profilePhotoFromUrl.getText().isEmpty() && profilePhotoFromLocal.getText().isEmpty()) {
             profilePhoto = null;
         }
 
@@ -70,22 +94,33 @@ public class AddCustomerController implements Initializable {
         }
         if (!profilePhotoFromUrl.getText().isEmpty()) {
             profilePhoto = ImageHelper.getProfilePhotoFromUrl(profilePhotoFromUrl.getText());
-            System.out.println(profilePhoto);
         }
-        Customer customer = new Customer(name.getText(), surname.getText(), email.getText(), UserType.CUSTOMER, phone.getText(), profilePhoto, LocalDate.now(), company.getText(), customerType);
         try {
-           boolean result = customerManager.save(customer);
+            if (!isEditMode) {
+                customer = new Customer(name.getText(), surname.getText(), email.getText(), UserType.CUSTOMER, phone.getText(), profilePhoto, LocalDate.now(), company.getText(), customerType);
+                saveResult = customerManager.save(customer);
+            } else {
+                //update the Personal
+                customer.setName(name.getText());
+                customer.setSurname(surname.getText());
+                customer.setEmail(email.getText());
+                customer.setPhone(phone.getText());
+                customer.setProfilePhoto(profilePhoto);
+                customer.setCompany(company.getText());
+                customer.setCustomerType(customerType);
 
-           if (result) {
-               clearFields();
-           }
+                saveResult = customerManager.update(customer);
+            }
+            if (saveResult) {
+                clearFields();
+                App.setRoot("customer-management-view");
+            }
         } catch (SQLException e) {
-            CustomErrorAlert.showAlert("Fehler bei Speicherung des Customers! \n"+e.getMessage());
+            CustomErrorAlert.showAlert("Fehler bei Speicherung des Customers! \n" + e.getMessage());
             e.printStackTrace();
             return;
         }
-        System.out.println("Customer saved"+customer);
-        // App.setRoot("add-task-view");
+        System.out.println("Customer saved" + customer);
 
     }
 

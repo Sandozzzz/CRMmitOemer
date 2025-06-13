@@ -1,11 +1,13 @@
 package com.winston.crm_mit_oemer.controller;
 
 import com.winston.crm_mit_oemer.App;
+import com.winston.crm_mit_oemer.controller.customers.AddCustomerController;
 import com.winston.crm_mit_oemer.controller.personals.AddPersonalController;
 import com.winston.crm_mit_oemer.model.Customer;
 import com.winston.crm_mit_oemer.model.Person;
 import com.winston.crm_mit_oemer.model.User;
 import com.winston.crm_mit_oemer.service.ImageHelper;
+import com.winston.crm_mit_oemer.util.CustomErrorAlert;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,6 +24,9 @@ import java.io.IOException;
 import java.util.Locale;
 
 public class DetailViewController {
+
+    FXMLLoader loader;
+    Parent root;
     @FXML
     private Label name;
     @FXML
@@ -62,29 +67,49 @@ public class DetailViewController {
 
     @FXML
     protected void onSaveButtonClicked() throws IOException {
-        App.setRoot("personal-add-view");
+        if (person instanceof Customer) {
+
+            App.setRoot("customer-management-view");
+        } else {
+            App.setRoot("personal-management-view");
+        }
+
 
     }
 
     @FXML
     protected void onCancelClicked() throws IOException {
-        App.setRoot("main-view");
+        if (person instanceof Customer) {
+
+            App.setRoot("customer-management-view");
+        } else {
+            App.setRoot("personal-management-view");
+        }
 
     }
 
     @FXML
-    protected void onEditButtonClicked() throws IOException {
+    protected void onEditButtonClicked()  {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/winston/crm_mit_oemer/views/personal-add-view.fxml"));
-            Parent root = loader.load();
-            AddPersonalController controller = loader.getController();
-            controller.setPerson((User) person);
+            if (person instanceof Customer) {
+
+                loader = new FXMLLoader(getClass().getResource("/com/winston/crm_mit_oemer/views/customer-add-view.fxml"));
+                root = loader.load();
+                AddCustomerController controller = loader.getController();
+                controller.setPerson((Customer) person);
+            } else {
+                loader = new FXMLLoader(getClass().getResource("/com/winston/crm_mit_oemer/views/personal-add-view.fxml"));
+                root = loader.load();
+                AddPersonalController controller = loader.getController();
+                controller.setPerson((User) person);
+            }
+
 
             Scene currentScene = editButton.getScene();
             currentScene.setRoot(root);
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            CustomErrorAlert.showAlert("Fehler bei Bearbeitung!" + e.getMessage());
         }
     }
 }

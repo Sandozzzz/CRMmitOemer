@@ -42,7 +42,7 @@ public class AddPersonalController implements Initializable {
     User user;
     byte[] profilePhoto;
     boolean isEditMode = false;
-
+    boolean saveResult = false;
     UserManager userManager = new UserManager();
 
 
@@ -90,42 +90,32 @@ public class AddPersonalController implements Initializable {
         if (!profilePhotoFromUrl.getText().isEmpty()) {
             profilePhoto = ImageHelper.getProfilePhotoFromUrl(profilePhotoFromUrl.getText());
         }
-        if (!isEditMode) {
-            //create a new Personal
-            user = new User(name.getText(), surname.getText(), email.getText(), password.getText(), UserType.PERSONAL, phone.getText(), profilePhoto, LocalDate.now());
-            try {
-                boolean result = userManager.save(user);
+        try {
 
-                if (result) {
-                    clearFields();
-                }
-            } catch (SQLException e) {
-                CustomErrorAlert.showAlert("Fehler bei Speicherung des Users! \n" + e.getMessage());
-                e.printStackTrace();
-                return;
+            if (!isEditMode) {
+                //create a new Personal
+                user = new User(name.getText(), surname.getText(), email.getText(), password.getText(), UserType.PERSONAL, phone.getText(), profilePhoto, LocalDate.now());
+
+                saveResult = userManager.save(user);
+            } else {
+                //update the Personal
+                user.setName(name.getText());
+                user.setSurname(surname.getText());
+                user.setEmail(email.getText());
+                user.setPhone(phone.getText());
+                user.setProfilePhoto(profilePhoto);
+
+                saveResult = userManager.update(user);
+            }
+            if (saveResult) {
+                clearFields();
+                App.setRoot("personal-management-view");
             }
 
-        } else {
-            //update the Personal
-            user.setName(name.getText());
-            user.setSurname(surname.getText());
-            user.setEmail(email.getText());
-            user.setPhone(phone.getText());
-            user.setProfilePhoto(profilePhoto);
-            try {
-                boolean result = userManager.update(user);
-
-                if (result) {
-                    clearFields();
-                    App.setRoot("personal-management-view");
-                }
-            } catch (SQLException e) {
-                CustomErrorAlert.showAlert("Fehler bei Speicherung des Users! \n" + e.getMessage());
-                e.printStackTrace();
-                return;
-            }
-
-
+        } catch (SQLException e) {
+            CustomErrorAlert.showAlert("Fehler bei Speicherung des Users! \n" + e.getMessage());
+            e.printStackTrace();
+            return;
         }
 
         System.out.println("Personal saved" + user);
