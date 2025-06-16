@@ -3,13 +3,13 @@ AnchorPane {
 }
 
 Button {
-    -fx-background-color: #4E6688;
-    -fx-text-fill: #E3EEB2;
+    -fx-background-color: #5C8D89;
+    -fx-text-fill: #F4F9F4;
     -fx-font-weight: bold ;
 }
 
 Button:hover {
-    -fx-background-color: #E3EEB2;
-    -fx-text-fill: #332D56;
+    -fx-background-color: #A7D7C5;
+    -fx-text-fill: #F4F9F4;
     -fx-font-weight: bold ;
 }

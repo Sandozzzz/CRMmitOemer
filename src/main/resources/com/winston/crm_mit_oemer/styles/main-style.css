@@ -6,23 +6,23 @@ AnchorPane {
 
 Button {
     -fx-font-size: 24;
-    -fx-background-color: #4E6688;
+    -fx-background-color: #5C8D89;
 }
 
 #normal-button {
     -fx-font-size: 16;
-    -fx-background-color: #4E6688;
+    -fx-background-color: #5C8D89;
 }
 
 #cancel-button {
     -fx-font-size: 16;
-    -fx-background-color: #E3EEB2;
-    -fx-text-fill: #332D56;
+    -fx-background-color: #A7D7C5;
+    -fx-text-fill: #5C8D89;
 }
 
 #cancel-button:hover {
-    -fx-background-color: #332D56;
-    -fx-text-fill: #E3EEB2;
+    -fx-background-color: #5C8D89;
+    -fx-text-fill: #F4F9F4;
 }
 
 ListView {
@@ -36,12 +36,12 @@ ListView {
 }
 
 #list-cell:selected, #list-cell:hover{
-    -fx-background-color: #4E6688;
-    -fx-text-fill: #E3EEB2;
+    -fx-background-color: #5C8D89;
+    -fx-text-fill: #F4F9F4;
 }
 #list-cell:selected #cell-label, #list-cell:hover #cell-label{
-    -fx-background-color: #4E6688;
-    -fx-text-fill: #E3EEB2;
+    -fx-background-color: #5C8D89;
+    -fx-text-fill: #F4F9F4;
 }
 
 
