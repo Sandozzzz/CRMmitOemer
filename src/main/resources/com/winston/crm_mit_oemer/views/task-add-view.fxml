@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.winston.crm_mit_oemer.controller.tasks.AddTaskController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.winston.crm_mit_oemer.controller.tasks.AddTaskController">
    <stylesheets>
       <URL value="@../styles/login-style.css" />
       <URL value="@../styles/main-style.css" />
@@ -21,40 +21,36 @@
             <Font name="System Bold" size="30.0" />
          </font>
       </Label>
-      <Button id="normal-button" layoutX="395.0" layoutY="439.0" mnemonicParsing="false" onAction="#onSaveTaskClicked" prefHeight="10.0" prefWidth="235.0"  text="Speichern" />
-      <MenuButton contentDisplay="CENTER" layoutX="93.0" layoutY="218.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="235.0" text="Task Type">
+      <Button id="normal-button" layoutX="395.0" layoutY="439.0" mnemonicParsing="false" onAction="#onSaveTaskClicked" prefHeight="10.0" prefWidth="235.0" text="Speichern" />
+      <MenuButton fx:id="taskTypeMenu" contentDisplay="CENTER" layoutX="93.0" layoutY="218.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="235.0" text="Task Type">
         <items>
-          <MenuItem mnemonicParsing="false" text="Action 1" />
-          <MenuItem mnemonicParsing="false" text="Action 2" />
+          <MenuItem mnemonicParsing="false" onAction="#onTaskTypeMenuItemClicked" text="OFFER" />
+          <MenuItem mnemonicParsing="false" onAction="#onTaskTypeMenuItemClicked" text="MEETING" />
+            <MenuItem mnemonicParsing="false" onAction="#onTaskTypeMenuItemClicked" text="CALL" />
+            <MenuItem mnemonicParsing="false" onAction="#onTaskTypeMenuItemClicked" text="VISIT" />
+            <MenuItem mnemonicParsing="false" onAction="#onTaskTypeMenuItemClicked" text="SUPPORT" />
         </items>
       </MenuButton>
-      <TextArea layoutX="93.0" layoutY="271.0" prefHeight="90.0" prefWidth="235.0" promptText="Description" />
-      <DatePicker layoutX="392.0" layoutY="218.0" prefHeight="35.0" prefWidth="235.0" promptText="Wählen Sie Startdatum des Tasks" />
-      <DatePicker layoutX="392.0" layoutY="271.0" prefHeight="35.0" prefWidth="235.0" promptText="Wählen Sie Enddatum des Tasks" />
-      <MenuButton layoutX="392.0" layoutY="323.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="235.0" text="Personal Zuweisen">
+      <TextArea fx:id="description" layoutX="93.0" layoutY="271.0" prefHeight="90.0" prefWidth="235.0" promptText="Description" />
+      <DatePicker fx:id="startDate" layoutX="392.0" layoutY="218.0" prefHeight="35.0" prefWidth="235.0" promptText="Wählen Sie Startdatum des Tasks" />
+      <DatePicker fx:id="endDate" layoutX="392.0" layoutY="271.0" prefHeight="35.0" prefWidth="235.0" promptText="Wählen Sie Enddatum des Tasks" />
+      <MenuButton fx:id="personalMenu" layoutX="392.0" layoutY="323.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="235.0" text="Personal Zuweisen" />
+      <MenuButton fx:id="taskStatusMenu" layoutX="695.0" layoutY="323.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="235.0" text="Status">
          <items>
-            <MenuItem mnemonicParsing="false" text="Action 1" />
-            <MenuItem mnemonicParsing="false" text="Action 2" />
+            <MenuItem mnemonicParsing="false" onAction="#onStatusMenuItemClicked" text="PLANNED" />
+            <MenuItem mnemonicParsing="false" onAction="#onStatusMenuItemClicked" text="INPROGRESS" />
+            <MenuItem mnemonicParsing="false" onAction="#onStatusMenuItemClicked" text="COMPLETED" />
+            <MenuItem mnemonicParsing="false" onAction="#onStatusMenuItemClicked" text="POSTPONED" />
          </items>
       </MenuButton>
-      <MenuButton layoutX="695.0" layoutY="323.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="235.0" text="Status">
+      <MenuButton fx:id="priorityMenu" layoutX="695.0" layoutY="271.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="235.0" text="Priorität">
          <items>
-            <MenuItem mnemonicParsing="false" text="Action 1" />
-            <MenuItem mnemonicParsing="false" text="Action 2" />
+            <MenuItem mnemonicParsing="false" onAction="#onPriorityMenuItemClicked" text="LOW" />
+            <MenuItem mnemonicParsing="false" onAction="#onPriorityMenuItemClicked" text="MEDIUM" />
+            <MenuItem mnemonicParsing="false" onAction="#onPriorityMenuItemClicked" text="HIGH" />
          </items>
       </MenuButton>
-      <MenuButton layoutX="695.0" layoutY="271.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="235.0" text="Priorität">
-         <items>
-            <MenuItem mnemonicParsing="false" text="Action 1" />
-            <MenuItem mnemonicParsing="false" text="Action 2" />
-         </items>
-      </MenuButton>
-      <MenuButton layoutX="695.0" layoutY="218.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="235.0" text="Kunde Auswählen">
-         <items>
-            <MenuItem mnemonicParsing="false" text="Action 1" />
-            <MenuItem mnemonicParsing="false" text="Action 2" />
-         </items>
-      </MenuButton>
+      <MenuButton fx:id="customerMenu" layoutX="695.0" layoutY="218.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="235.0" text="Kunde Auswählen" />
       <Button id="cancel-button" layoutX="395.0" layoutY="484.0" mnemonicParsing="false" onAction="#onCancelClicked" prefHeight="25.0" prefWidth="235.0" stylesheets="@../styles/main-style.css" text="Abbrechen" />
    </children>
 </AnchorPane>
