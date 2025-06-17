@@ -1,6 +1,7 @@
 package com.winston.crm_mit_oemer.service;
 
 import com.winston.crm_mit_oemer.model.Customer;
+import com.winston.crm_mit_oemer.model.Note;
 import com.winston.crm_mit_oemer.model.User;
 import com.winston.crm_mit_oemer.util.CustomerType;
 import com.winston.crm_mit_oemer.util.ICRUD;
@@ -10,8 +11,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserManager implements ICRUD<User> {
+public class UserManager implements ICRUD<User, Note> {
     private final String TABLE_NAME = "users";
+    private final String NOTE_TABLE = "notes";
 
     @Override
     public boolean save(User user) throws SQLException {
@@ -109,5 +111,47 @@ public class UserManager implements ICRUD<User> {
         user.setProfilePhoto(rs.getBytes("profilePhoto"));
         user.setNewUser(rs.getBoolean("isNewUser"));
         return user;
+    }
+
+    @Override
+    public boolean addNote(Note note) throws SQLException {
+        final String SQL = "INSERT INTO " + NOTE_TABLE + "(note_id, note, user_id, customer_id, createdDate) VALUES (NULL,?,?,?,?)";
+        try ( Connection con = ConnectionFactory.getConnection(); PreparedStatement stmt = con.prepareStatement(SQL)){
+            stmt.setString(1, note.getNote());
+            stmt.setInt(2, note.getUserId());
+            stmt.setNull(3, Types.INTEGER);
+            stmt.setDate(4, Date.valueOf(note.getCreatedDate()));
+            return stmt.executeUpdate() > 0;
+        }
+    }
+
+    @Override
+    public boolean updateNote(Note note) throws SQLException {
+        final String SQL = "UPDATE " + NOTE_TABLE + " SET note=?, createdDate=? WHERE user_id=?";
+        try ( Connection con = ConnectionFactory.getConnection(); PreparedStatement stmt = con.prepareStatement(SQL)){
+            stmt.setString(1, note.getNote());
+            stmt.setDate(2, Date.valueOf(note.getCreatedDate()));
+            stmt.setInt(3, note.getUserId());
+            return stmt.executeUpdate() > 0;
+        }
+    }
+
+    @Override
+    public Note findNoteById(int id) throws SQLException {
+        final String SQL = "SELECT * FROM " + NOTE_TABLE + " WHERE user_id=?";
+        try ( Connection con = ConnectionFactory.getConnection(); PreparedStatement stmt = con.prepareStatement(SQL)){
+            stmt.setInt(1, id);
+            ResultSet resultSet = stmt.executeQuery();
+            if (resultSet.next()) {
+                Note note = new Note();
+                note.setId(resultSet.getInt("note_id"));
+                note.setNote(resultSet.getString("note"));
+                note.setUserId(resultSet.getInt("user_id"));
+                note.setCustomerId(resultSet.getInt("customer_id"));
+                note.setCreatedDate(resultSet.getDate("createdDate").toLocalDate());
+                return note;
+            }
+        }
+        return null;
     }
 }

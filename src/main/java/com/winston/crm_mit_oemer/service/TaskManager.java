@@ -1,16 +1,13 @@
 package com.winston.crm_mit_oemer.service;
 
-import com.winston.crm_mit_oemer.model.Customer;
-import com.winston.crm_mit_oemer.model.TaskDTO;
-import com.winston.crm_mit_oemer.model.Tasks;
-import com.winston.crm_mit_oemer.model.User;
+import com.winston.crm_mit_oemer.model.*;
 import com.winston.crm_mit_oemer.util.*;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TaskManager implements ICRUD<TaskDTO> {
+public class TaskManager implements ICRUD<TaskDTO, Note> {
     private final String TABLE_NAME = "tasks";
 
     @Override
@@ -53,6 +50,8 @@ public class TaskManager implements ICRUD<TaskDTO> {
 
         return tasks;
     }
+
+
 
     @Override
     public boolean update(TaskDTO task) throws SQLException {
@@ -134,5 +133,19 @@ public class TaskManager implements ICRUD<TaskDTO> {
         task.setPersonal(personal);
         task.setCustomer(customer);
         return task;
+    }
+
+    @Override
+    public boolean addNote(Note note) throws SQLException {
+        return false;
+    }
+
+    @Override
+    public boolean updateNote(Note note) throws SQLException {
+        return false;
+    }
+    @Override
+    public Note findNoteById(int id) throws SQLException {
+        return null;
     }
 }

@@ -1,6 +1,7 @@
 package com.winston.crm_mit_oemer.service;
 
 import com.winston.crm_mit_oemer.model.Customer;
+import com.winston.crm_mit_oemer.model.Note;
 import com.winston.crm_mit_oemer.util.CustomerType;
 import com.winston.crm_mit_oemer.util.ICRUD;
 import com.winston.crm_mit_oemer.util.UserType;
@@ -11,8 +12,9 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomerManager implements ICRUD<Customer> {
+public class CustomerManager implements ICRUD<Customer,Note> {
     private final String TABLE_NAME = "customer";
+    private final String NOTE_TABLE = "notes";
 
     @Override
     public boolean save(Customer customer) throws SQLException {
@@ -108,5 +110,47 @@ public class CustomerManager implements ICRUD<Customer> {
         cus.setProfilePhoto(rs.getBytes("profilePhoto"));
         cus.setCustomerType(CustomerType.valueOf(rs.getString("customerType")));
         return cus;
+    }
+
+    @Override
+    public boolean addNote(Note note) throws SQLException {
+        final String SQL = "INSERT INTO " + NOTE_TABLE + "(note_id, note, user_id, customer_id, createdDate) VALUES (NULL,?,?,?,?)";
+        try ( Connection con = ConnectionFactory.getConnection(); PreparedStatement stmt = con.prepareStatement(SQL)){
+            stmt.setString(1, note.getNote());
+            stmt.setNull(2, Types.INTEGER);
+            stmt.setInt(3, note.getCustomerId());
+            stmt.setDate(4, Date.valueOf(note.getCreatedDate()));
+            return stmt.executeUpdate() > 0;
+        }
+    }
+
+    @Override
+    public boolean updateNote(Note note) throws SQLException {
+        final String SQL = "UPDATE " + NOTE_TABLE + " SET note=?, createdDate=? WHERE customer_id=?";
+        try ( Connection con = ConnectionFactory.getConnection(); PreparedStatement stmt = con.prepareStatement(SQL)){
+            stmt.setString(1, note.getNote());
+            stmt.setDate(2, Date.valueOf(note.getCreatedDate()));
+            stmt.setInt(3, note.getCustomerId());
+            return stmt.executeUpdate() > 0;
+        }
+    }
+
+    @Override
+    public Note findNoteById(int id) throws SQLException {
+        final String SQL = "SELECT * FROM " + NOTE_TABLE + " WHERE customer_id=?";
+        try ( Connection con = ConnectionFactory.getConnection(); PreparedStatement stmt = con.prepareStatement(SQL)){
+            stmt.setInt(1, id);
+            ResultSet resultSet = stmt.executeQuery();
+            if (resultSet.next()) {
+                Note note = new Note();
+                note.setId(resultSet.getInt("note_id"));
+                note.setNote(resultSet.getString("note"));
+                note.setUserId(resultSet.getInt("user_id"));
+                note.setCustomerId(resultSet.getInt("customer_id"));
+                note.setCreatedDate(resultSet.getDate("createdDate").toLocalDate());
+                return note;
+            }
+        }
+        return null;
     }
 }
