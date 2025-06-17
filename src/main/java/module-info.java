@@ -14,5 +14,7 @@ module com.winston.crm_mit_oemer {
     opens com.winston.crm_mit_oemer.controller.customers to javafx.fxml;
     exports com.winston.crm_mit_oemer.controller.personals;
     opens com.winston.crm_mit_oemer.controller.personals to javafx.fxml;
+    opens com.winston.crm_mit_oemer.model to javafx.base;
+
 
 }

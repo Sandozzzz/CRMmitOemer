@@ -2,9 +2,11 @@ package com.winston.crm_mit_oemer.controller.tasks;
 
 import com.winston.crm_mit_oemer.App;
 import com.winston.crm_mit_oemer.model.Customer;
+import com.winston.crm_mit_oemer.model.TaskDTO;
 import com.winston.crm_mit_oemer.model.Tasks;
 import com.winston.crm_mit_oemer.model.User;
 import com.winston.crm_mit_oemer.service.CustomerManager;
+import com.winston.crm_mit_oemer.service.ImageHelper;
 import com.winston.crm_mit_oemer.service.TaskManager;
 import com.winston.crm_mit_oemer.service.UserManager;
 import com.winston.crm_mit_oemer.util.*;
@@ -15,6 +17,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
+import javafx.scene.shape.Circle;
 
 import java.io.IOException;
 import java.net.URL;
@@ -43,6 +46,9 @@ public class AddTaskController implements Initializable {
     @FXML
     TextArea description;
 
+    boolean isEditMode = false;
+
+    TaskDTO task;
     TaskType taskType;
     TaskStatus taskStatus;
     PriorityType priorityType;
@@ -56,21 +62,61 @@ public class AddTaskController implements Initializable {
     TaskManager taskManager = new TaskManager();
 
 
-    @FXML
+    public void getTask(TaskDTO task) {
+        this.task = task;
+        updateView();
+        isEditMode = true;
+    }
+
+    private void updateView() {
+
+        taskTypeMenu.setText(task.getTaskType().name());
+        priorityMenu.setText(task.getPriorityType().name());
+        taskStatusMenu.setText(task.getTaskStatus().name());
+        startDate.setValue(task.getStartDate());
+        endDate.setValue(task.getEndDate());
+        personalMenu.setText(task.getPersonalName());
+        customerMenu.setText(task.getCustomerName());
+        description.setText(task.getDescription());
+
+        this.taskType = task.getTaskType();
+        this.taskStatus = task.getTaskStatus();
+        this.priorityType = task.getPriorityType();
+        this.personal = task.getPersonal();
+        this.customer = task.getCustomer();
+
+    }
+
+        @FXML
     protected void onSaveTaskClicked() throws IOException {
         if (startDate.getValue() == null || endDate.getValue() == null || taskType == null || taskStatus == null || priorityType == null || personal == null || customer == null) {
             CustomErrorAlert.showAlert("Füllen Sie bitte alle Feldern aus!");
             return;
         }
 
-        LocalDate startDateValue = startDate.getValue();
-        LocalDate endDateValue = endDate.getValue();
-        Tasks task = new Tasks(taskType, description.getText(), taskStatus, priorityType, personal.getId(), customer.getId(), startDateValue, endDateValue, LocalDate.now());
 
-        try {
-           boolean result= taskManager.save(task);
+            try {
+                boolean result;
+                if (!isEditMode) {
+                    LocalDate startDateValue = startDate.getValue();
+                    LocalDate endDateValue = endDate.getValue();
+                    task = new TaskDTO(taskType, description.getText(), taskStatus, priorityType, personal.getId(), customer.getId(), startDateValue, endDateValue, LocalDate.now());
+                    result = taskManager.save(task);
+                }else {
+                    //update task
+                    task.setTaskType(taskType);
+                    task.setDescription(description.getText());
+                    task.setStartDate(startDate.getValue());
+                    task.setEndDate(endDate.getValue());
+                    task.setPersonal(personal);
+                    task.setCustomer(customer);
+                    task.setPriorityType(priorityType);
+                    task.setTaskStatus(taskStatus);
 
-           if(result){
+                    result = taskManager.update(task);
+                }
+
+                if(result){
                App.setRoot("task-management-view");
            }
 

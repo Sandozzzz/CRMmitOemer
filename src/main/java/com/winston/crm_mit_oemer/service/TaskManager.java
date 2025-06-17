@@ -1,21 +1,20 @@
 package com.winston.crm_mit_oemer.service;
 
 import com.winston.crm_mit_oemer.model.Customer;
+import com.winston.crm_mit_oemer.model.TaskDTO;
 import com.winston.crm_mit_oemer.model.Tasks;
-import com.winston.crm_mit_oemer.util.ICRUD;
-import com.winston.crm_mit_oemer.util.PriorityType;
-import com.winston.crm_mit_oemer.util.TaskStatus;
-import com.winston.crm_mit_oemer.util.TaskType;
+import com.winston.crm_mit_oemer.model.User;
+import com.winston.crm_mit_oemer.util.*;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TaskManager implements ICRUD<Tasks> {
+public class TaskManager implements ICRUD<TaskDTO> {
     private final String TABLE_NAME = "tasks";
 
     @Override
-    public boolean save(Tasks task) throws SQLException {
+    public boolean save(TaskDTO task) throws SQLException {
         final String SQL = "INSERT INTO " + TABLE_NAME + "(id, taskType, description, status, priority, personalid, customerid, startdate, enddate, createdDate) VALUES (NULL,?,?,?,?,?,?,?,?,?)";
         try (Connection con = ConnectionFactory.getConnection();
              PreparedStatement stmt = con.prepareStatement(SQL)) {
@@ -35,9 +34,15 @@ public class TaskManager implements ICRUD<Tasks> {
     }
 
     @Override
-    public List<Tasks> findAll() throws SQLException {
-        List<Tasks> tasks = new ArrayList<>();
-        final String SQL = "SELECT * FROM " + TABLE_NAME;
+    public List<TaskDTO> findAll() throws SQLException {
+        List<TaskDTO> tasks = new ArrayList<>();
+        final String SQL = "SELECT t.id AS task_id, t.taskType, t.description, t.status, t.priority, t.personalid, t.customerid, t.startdate, t.enddate, t.createdDate, " +
+                "p.id AS personal_id, p.name AS personal_name, p.surname AS personal_surname, p.email AS personal_email, p.password, p.status AS personal_status, p.phone AS personal_phone, p.profilePhoto AS personal_profilePhoto, p.createdDate AS personal_createdDate, p.isNewUser, " +
+                "c.id AS customer_id, c.name AS customer_name, c.surname AS customer_surname, c.email AS customer_email, c.status AS customer_status, c.phone AS customer_phone, c.profilePhoto AS customer_profilePhoto, c.createdDate AS customer_createdDate, c.company, c.customerType " +
+                "FROM " + TABLE_NAME + " t" +
+                " JOIN users p ON t.personalid = p.id " +
+                " JOIN customer c ON t.customerid = c.id";
+
         try (Connection con = ConnectionFactory.getConnection(); Statement stmt = con.prepareStatement(SQL)) {
             ResultSet resultSet = stmt.executeQuery(SQL);
 
@@ -50,7 +55,7 @@ public class TaskManager implements ICRUD<Tasks> {
     }
 
     @Override
-    public boolean update(Tasks task) throws SQLException {
+    public boolean update(TaskDTO task) throws SQLException {
         final String SQL = "UPDATE " + TABLE_NAME + " SET taskType=?, description=?, status=?, priority=?, personalid=?, customerid=?, startdate=?, enddate=?, createdDate=? WHERE id=?";
         try (Connection con = ConnectionFactory.getConnection(); PreparedStatement stmt = con.prepareStatement(SQL)) {
             stmt.setString(1, task.getTaskType().name());
@@ -68,7 +73,7 @@ public class TaskManager implements ICRUD<Tasks> {
     }
 
     @Override
-    public boolean delete(Tasks task) throws SQLException {
+    public boolean delete(TaskDTO task) throws SQLException {
         final String SQL = "DELETE FROM " + TABLE_NAME + " WHERE id=?";
         try (Connection con = ConnectionFactory.getConnection(); PreparedStatement stmt = con.prepareStatement(SQL)) {
             stmt.setInt(1, task.getId());
@@ -77,7 +82,7 @@ public class TaskManager implements ICRUD<Tasks> {
     }
 
     @Override
-    public Tasks findById(int id) throws SQLException {
+    public TaskDTO findById(int id) throws SQLException {
         final String SQL = "SELECT * FROM " + TABLE_NAME + " WHERE id=?";
         try (Connection con = ConnectionFactory.getConnection(); PreparedStatement stmt = con.prepareStatement(SQL)) {
             stmt.setInt(1, id);
@@ -90,9 +95,33 @@ public class TaskManager implements ICRUD<Tasks> {
     }
 
     @Override
-    public Tasks create(ResultSet rs) throws SQLException {
-        Tasks task = new Tasks();
-        task.setId(rs.getInt("id"));
+    public TaskDTO create(ResultSet rs) throws SQLException {
+        User personal = new User();
+        personal.setId(rs.getInt("personal_id"));
+        personal.setName(rs.getString("personal_name"));
+        personal.setSurname(rs.getString("personal_surname"));
+        personal.setEmail(rs.getString("personal_email"));
+        personal.setPassword(rs.getString("password"));
+        personal.setStatus(UserType.valueOf(rs.getString("personal_status")));
+        personal.setPhone(rs.getString("personal_phone"));
+        personal.setProfilePhoto(rs.getBytes("personal_profilePhoto"));
+        personal.setCreatedDate(rs.getDate("personal_createdDate").toLocalDate());
+        personal.setNewUser(rs.getBoolean("isNewUser"));
+
+        Customer customer = new Customer();
+        customer.setId(rs.getInt("customer_id"));
+        customer.setName(rs.getString("customer_name"));
+        customer.setSurname(rs.getString("customer_surname"));
+        customer.setEmail(rs.getString("customer_email"));
+        customer.setStatus(UserType.valueOf(rs.getString("customer_status")));
+        customer.setPhone(rs.getString("customer_phone"));
+        customer.setProfilePhoto(rs.getBytes("customer_profilePhoto"));
+        customer.setCreatedDate(rs.getDate("customer_createdDate").toLocalDate());
+        customer.setCompany(rs.getString("company"));
+        customer.setCustomerType(CustomerType.valueOf(rs.getString("customerType")));
+
+        TaskDTO task = new TaskDTO();
+        task.setId(rs.getInt("task_id"));
         task.setTaskType(TaskType.valueOf(rs.getString("taskType")));
         task.setDescription(rs.getString("description"));
         task.setTaskStatus(TaskStatus.valueOf(rs.getString("status")));
@@ -102,7 +131,8 @@ public class TaskManager implements ICRUD<Tasks> {
         task.setStartDate(rs.getDate("startdate").toLocalDate());
         task.setEndDate(rs.getDate("enddate").toLocalDate());
         task.setCreatedDate(rs.getDate("createdDate").toLocalDate());
-
+        task.setPersonal(personal);
+        task.setCustomer(customer);
         return task;
     }
 }
