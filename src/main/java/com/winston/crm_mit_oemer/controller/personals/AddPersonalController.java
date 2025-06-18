@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.File;
 import java.io.IOException;
@@ -43,6 +44,7 @@ public class AddPersonalController implements Initializable {
     byte[] profilePhoto;
     boolean isEditMode = false;
     boolean saveResult = false;
+    private String hashedPwd;
     UserManager userManager = new UserManager();
 
 
@@ -74,6 +76,11 @@ public class AddPersonalController implements Initializable {
         if (!isEditMode && password.getText().isEmpty() && password.getText().length() < 6) {
             CustomErrorAlert.showAlert("Das Passwort ist zu kurz!");
             return;
+        } else {
+            hashedPwd = BCrypt.hashpw(password.getText(), BCrypt.gensalt());
+            if (BCrypt.checkpw(password.getText(), hashedPwd)) {
+                System.out.println("Password is correct");
+            }
         }
         if (!email.getText().matches("^[A-Za-z0-9._]+@[A-Za-z0-9]+\\.[A-Za-z0-9]{2,6}$")) {
             CustomErrorAlert.showAlert("Die Email ist ungültig!");
@@ -94,7 +101,7 @@ public class AddPersonalController implements Initializable {
 
             if (!isEditMode) {
                 //create a new Personal
-                user = new User(name.getText(), surname.getText(), email.getText(), password.getText(), UserType.PERSONAL, phone.getText(), profilePhoto, LocalDate.now());
+                user = new User(name.getText(), surname.getText(), email.getText(), hashedPwd, UserType.PERSONAL, phone.getText(), profilePhoto, LocalDate.now());
 
                 saveResult = userManager.save(user);
             } else {

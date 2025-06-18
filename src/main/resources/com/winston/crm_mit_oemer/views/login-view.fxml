@@ -8,7 +8,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1080.0" stylesheets="@../styles/login-style.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.winston.crm_mit_oemer.controller.LoginController">
+<AnchorPane prefHeight="720.0" prefWidth="1080.0" stylesheets="@../styles/login-style.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.winston.crm_mit_oemer.controller.login.LoginController">
    <children>
       <ImageView fitHeight="309.0" fitWidth="264.0" layoutX="404.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -16,9 +16,9 @@
          </image>
       </ImageView>
       <Label layoutX="423.0" layoutY="310.0" text="Email" />
-      <TextField layoutX="422.0" layoutY="326.0" prefHeight="35.0" prefWidth="235.0" />
+      <TextField fx:id="email" layoutX="422.0" layoutY="326.0" prefHeight="35.0" prefWidth="235.0" />
       <Label layoutX="423.0" layoutY="368.0" text="Passwort" />
       <Button layoutX="422.0" layoutY="430.0" mnemonicParsing="false" onAction="#onLoginButtonClicked" prefHeight="35.0" prefWidth="235.0" text="Anmelden" />
-      <PasswordField layoutX="422.0" layoutY="384.0" prefHeight="35.0" prefWidth="235.0" />
+      <PasswordField fx:id="passwordTextField" layoutX="422.0" layoutY="384.0" prefHeight="35.0" prefWidth="235.0" />
    </children>
 </AnchorPane>

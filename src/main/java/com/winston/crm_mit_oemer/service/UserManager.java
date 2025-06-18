@@ -10,6 +10,7 @@ import com.winston.crm_mit_oemer.util.UserType;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class UserManager implements ICRUD<User, Note> {
     private final String TABLE_NAME = "users";
@@ -95,6 +96,19 @@ public class UserManager implements ICRUD<User, Note> {
             }
         }
         return null;
+    }
+
+    public Optional<User> findByEmail(String email) throws SQLException {
+        final String SQL = "SELECT * FROM " + TABLE_NAME + " WHERE email=?";
+        try ( Connection con = ConnectionFactory.getConnection();
+              PreparedStatement stmt = con.prepareStatement(SQL)){
+            stmt.setString(1, email);
+            ResultSet resultSet = stmt.executeQuery();
+            if (resultSet.next()) {
+                return Optional.ofNullable(create(resultSet));
+            }
+        }
+        return Optional.empty();
     }
 
     @Override

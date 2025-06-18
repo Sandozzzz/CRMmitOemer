@@ -13,7 +13,6 @@ import com.winston.crm_mit_oemer.service.UserManager;
 import com.winston.crm_mit_oemer.util.CustomErrorAlert;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -23,10 +22,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
 
 import java.io.IOException;
-import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ResourceBundle;
 
 public class DetailViewController {
 
@@ -77,27 +74,34 @@ public class DetailViewController {
 
     @FXML
     protected void onSaveButtonClicked() throws IOException {
+        boolean result;
         try {
             if (person instanceof Customer) {
                 customerManager = new CustomerManager();
                if (!haveNote) {
                    note = new Note(0,noteArea.getText(), person.getId(), 0, LocalDate.now());
-                   customerManager.addNote(note);
+                 result=  customerManager.addNote(note);
                }else{
                    note.setNote(noteArea.getText());
                    note.setCreatedDate( LocalDate.now());
-                   customerManager.updateNote(note);
+                   result=   customerManager.updateNote(note);
+               }
+               if(result){
+                   App.setRoot("customer-management-view");
                }
 
             } else {
                 userManager = new UserManager();
                 if (!haveNote) {
                     note = new Note(0,noteArea.getText(),0, person.getId(),  LocalDate.now());
-                    userManager.addNote(note);
+                    result=  userManager.addNote(note);
                 }else{
                     note.setNote(noteArea.getText());
                     note.setCreatedDate( LocalDate.now());
-                    userManager.updateNote(note);
+                    result=  userManager.updateNote(note);
+                }
+                if(result){
+                    App.setRoot("personal-management-view");
                 }
             }
         } catch (SQLException e) {
@@ -157,7 +161,6 @@ public class DetailViewController {
                 noteArea.setText(note.getNote());
                 haveNote = true;
             }
-            System.out.println(haveNote);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
