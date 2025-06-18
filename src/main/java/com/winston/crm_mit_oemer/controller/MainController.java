@@ -1,6 +1,9 @@
 package com.winston.crm_mit_oemer.controller;
 
 import com.winston.crm_mit_oemer.App;
+import com.winston.crm_mit_oemer.model.User;
+import com.winston.crm_mit_oemer.service.LoginManager;
+import com.winston.crm_mit_oemer.util.UserType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -19,10 +22,21 @@ public class MainController implements Initializable {
     @FXML
     private Button personalButton;
 
+    User user = LoginManager.getInstance().getCurrentUser();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //TODO: if user is standard user, make button invisible
-        //personalButton.setVisible(false);
+        if (user == null) {
+            try {
+                App.setRoot("login-view");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        welcomeText.setText("Willkommen, " + user.getName() +"!");
+        //if the user is PERSONAL, make the button disabled
+        if(user.getStatus() == UserType.PERSONAL) {
+            personalButton.setDisable(true);
+        }
     }
     @FXML
     protected void onKundeManagementClicked() throws IOException {

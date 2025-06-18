@@ -23,6 +23,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * Customer Management Controller is used to show the customers.
+ * It guides you to add and edit any customers **/
 public class CustomerManagementController implements Initializable {
 
     @FXML

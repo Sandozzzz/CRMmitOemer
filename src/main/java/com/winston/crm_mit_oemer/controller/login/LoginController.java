@@ -21,13 +21,15 @@ public class LoginController {
     @FXML
         protected void onLoginButtonClicked() throws IOException {
         UserDTO userDTO = new UserDTO();
-        userDTO.setEmail(email.getText());
-        userDTO.setPassword(passwordTextField.getText());
+       // userDTO.setEmail(email.getText());
+       // userDTO.setPassword(passwordTextField.getText());
+        userDTO.setEmail("t.edison@crm.de");
+        userDTO.setPassword("123456");
+
         LoginManager loginManager = LoginManager.getInstance();
         try {
             if(loginManager.logIn(userDTO)){
                 // New users have to change Password
-
                 if(loginManager.getCurrentUser().isNewUser()){
                     App.setRoot("pwd-change-view");
                 }else{

@@ -25,6 +25,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
+/**
+ * Detail View Controller is used to display users or customers, which are subclasses of the Person class.
+ * You can add individual note. **/
 public class DetailViewController {
 
     FXMLLoader loader;

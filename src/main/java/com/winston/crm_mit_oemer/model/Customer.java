@@ -5,6 +5,7 @@ import com.winston.crm_mit_oemer.util.UserType;
 
 import java.time.LocalDate;
 
+/**Customer model **/
 public class Customer extends Person {
 
     private String company;

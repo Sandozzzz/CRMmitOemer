@@ -23,7 +23,9 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
-
+/**
+ * Personal Management Controller is used to show the users.
+ * It guides you to add and edit any personals **/
 public class PersonalManagementController implements Initializable {
 
     @FXML

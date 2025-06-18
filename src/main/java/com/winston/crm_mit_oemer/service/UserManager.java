@@ -12,6 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * User Manager class is used to perform CRUD functions for the users
+ * **/
+
 public class UserManager implements ICRUD<User, Note> {
     private final String TABLE_NAME = "users";
     private final String NOTE_TABLE = "notes";
@@ -85,17 +89,18 @@ public class UserManager implements ICRUD<User, Note> {
     }
 
     @Override
-    public User findById(int id) throws SQLException {
+    public List<User> findById(int id) throws SQLException {
         final String SQL = "SELECT * FROM " + TABLE_NAME + " WHERE id=?";
+        List<User> users = new ArrayList<>();
         try ( Connection con = ConnectionFactory.getConnection();
               PreparedStatement stmt = con.prepareStatement(SQL)){
             stmt.setInt(1, id);
             ResultSet resultSet = stmt.executeQuery();
             if (resultSet.next()) {
-                return create(resultSet);
+                 users.add(create(resultSet));
             }
         }
-        return null;
+        return users;
     }
 
     public Optional<User> findByEmail(String email) throws SQLException {

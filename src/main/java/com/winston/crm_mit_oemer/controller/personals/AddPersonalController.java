@@ -20,6 +20,8 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
+
+/** to add and edit a user. **/
 public class AddPersonalController implements Initializable {
     @FXML
     private TextField name;
@@ -78,9 +80,6 @@ public class AddPersonalController implements Initializable {
             return;
         } else {
             hashedPwd = BCrypt.hashpw(password.getText(), BCrypt.gensalt());
-            if (BCrypt.checkpw(password.getText(), hashedPwd)) {
-                System.out.println("Password is correct");
-            }
         }
         if (!email.getText().matches("^[A-Za-z0-9._]+@[A-Za-z0-9]+\\.[A-Za-z0-9]{2,6}$")) {
             CustomErrorAlert.showAlert("Die Email ist ungültig!");

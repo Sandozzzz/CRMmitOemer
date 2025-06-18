@@ -4,6 +4,7 @@ import com.winston.crm_mit_oemer.util.UserType;
 
 import java.time.LocalDate;
 
+/**Person model is a superclass. User and Customer classes are subclasses of it. **/
 public class Person {
     private int id;
     private String name;

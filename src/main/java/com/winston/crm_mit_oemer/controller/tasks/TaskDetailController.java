@@ -21,6 +21,9 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
+
+/**
+ * Task Detail Controller is used to display tasks in detail. **/
 public class TaskDetailController implements Initializable {
     @FXML
     private Label name;

@@ -22,6 +22,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
+/** to add and edit a customer. **/
 public class AddCustomerController implements Initializable {
     @FXML
     private TextField name;

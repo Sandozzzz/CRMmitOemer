@@ -6,6 +6,7 @@ import com.winston.crm_mit_oemer.util.TaskType;
 
 import java.time.LocalDate;
 
+/**Task model **/
 public class Tasks {
     int id;
     TaskType taskType;

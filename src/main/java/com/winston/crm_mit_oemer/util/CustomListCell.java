@@ -19,9 +19,9 @@ import java.util.Objects;
 public class CustomListCell extends ListCell<Person> {
     private final HBox content;
     private final ImageView imageView;
-    private final VBox vbox;
     private final Label nameLabel;
     private final Label subLabel;
+    private final Label subLabel2;
 
     public CustomListCell() {
         imageView = new ImageView();
@@ -39,7 +39,10 @@ public class CustomListCell extends ListCell<Person> {
         subLabel = new Label();
         subLabel.setId("cell-label");
 
-        vbox = new VBox(nameLabel, subLabel);
+        subLabel2 = new Label();
+        subLabel2.setId("cell-label");
+
+        VBox vbox = new VBox(nameLabel, subLabel,subLabel2);
         vbox.setSpacing(2);
         vbox.setAlignment(Pos.CENTER_LEFT);
         content = new HBox(imageView, vbox);
@@ -58,6 +61,7 @@ public class CustomListCell extends ListCell<Person> {
             nameLabel.setText(person.getName() + " " + person.getSurname());
             if (person instanceof Customer) {
                 subLabel.setText(((Customer) person).getCompany());
+                subLabel2.setText(((Customer) person).getCustomerType().name().toLowerCase());
             }
             if (person instanceof User) {
                 subLabel.setText(person.getEmail());

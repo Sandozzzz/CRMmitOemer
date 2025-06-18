@@ -12,8 +12,9 @@ import javafx.util.Duration;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
+/** To update password.
+ * New users have to update their password in the first login.  **/
 public class PwdChangeController {
 
     @FXML

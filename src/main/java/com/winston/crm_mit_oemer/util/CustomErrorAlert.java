@@ -2,6 +2,7 @@ package com.winston.crm_mit_oemer.util;
 
 import javafx.scene.control.Alert;
 
+/** to display alert when an error is thrown. **/
 public class CustomErrorAlert {
 
 

@@ -3,7 +3,10 @@ package com.winston.crm_mit_oemer.controller.tasks;
 import com.winston.crm_mit_oemer.App;
 import com.winston.crm_mit_oemer.controller.DetailViewController;
 import com.winston.crm_mit_oemer.model.TaskDTO;
+import com.winston.crm_mit_oemer.model.User;
+import com.winston.crm_mit_oemer.service.LoginManager;
 import com.winston.crm_mit_oemer.service.TaskManager;
+import com.winston.crm_mit_oemer.util.UserType;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -19,12 +22,17 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
-
+/**
+ * Task Management Controller is used to show the tasks by authorization.
+ * It guides you to add and edit any task **/
 public class TaskManagementController implements Initializable {
-TaskManager taskManager = new TaskManager();
 
-@FXML
-private TableView<TaskDTO> taskTableView;
+    @FXML
+    private TableView<TaskDTO> taskTableView;
+
+    List<TaskDTO> taskList;
+    TaskManager taskManager = new TaskManager();
+    User user = LoginManager.getInstance().getCurrentUser();
 
     @FXML
     protected void onAddTaskClicked() throws IOException {
@@ -37,17 +45,25 @@ private TableView<TaskDTO> taskTableView;
         App.setRoot("main-view");
 
     }
-
+/**
+ * ADMIN user can see all tasks, but personal can see only his/her tasks.
+ * All tasks are in the table shown.
+ * All items have an edit function with a click. **/
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            List<TaskDTO> taskList = taskManager.findAll();
+
+            if(user.getStatus() == UserType.ADMIN){
+            taskList = taskManager.findAll();}
+            else {
+                taskList = taskManager.findById(user.getId());
+            }
             System.out.println(taskList);
-            TableColumn<TaskDTO,String> personalColumn = new TableColumn<>("Personal");
+            TableColumn<TaskDTO, String> personalColumn = new TableColumn<>("Personal");
             personalColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPersonalName()));
-            TableColumn<TaskDTO,String> customerColumn = new TableColumn<>("Kunde");
+            TableColumn<TaskDTO, String> customerColumn = new TableColumn<>("Kunde");
             customerColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCustomerName()));
-            taskTableView.getColumns().addAll(personalColumn,customerColumn);
+            taskTableView.getColumns().addAll(personalColumn, customerColumn);
             taskTableView.setItems(FXCollections.observableList(taskList));
             taskTableView.getSelectionModel().selectedItemProperty().addListener((observable, taskDTO, newValue) -> {
                 try {

@@ -6,6 +6,9 @@ import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.SQLException;
 
+/**
+ * Login Manager class is used to manage user authentification.
+ * **/
 public class LoginManager {
 
     private static final LoginManager instance = new LoginManager();

@@ -12,6 +12,10 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * Customer Manager class is used to perform CRUD functions for the customers
+ * **/
 public class CustomerManager implements ICRUD<Customer,Note> {
     private final String TABLE_NAME = "customer";
     private final String NOTE_TABLE = "notes";
@@ -40,7 +44,7 @@ public class CustomerManager implements ICRUD<Customer,Note> {
 
     @Override
     public List<Customer> findAll() throws SQLException {
-        List<Customer> customers = new ArrayList<Customer>();
+        List<Customer> customers = new ArrayList<>();
         final String SQL = "SELECT * FROM " + TABLE_NAME;
         try(Connection con = ConnectionFactory.getConnection(); Statement stmt = con.prepareStatement(SQL)){
           ResultSet resultSet =  stmt.executeQuery(SQL);
@@ -83,17 +87,18 @@ public class CustomerManager implements ICRUD<Customer,Note> {
     }
 
     @Override
-    public Customer findById(int id) throws SQLException {
+    public List<Customer> findById(int id) throws SQLException {
+        List<Customer> customers = new ArrayList<>();
         final String SQL = "SELECT * FROM " + TABLE_NAME + " WHERE id=?";
         try ( Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = con.prepareStatement(SQL)){
             stmt.setInt(1, id);
             ResultSet resultSet = stmt.executeQuery();
             if (resultSet.next()) {
-                return create(resultSet);
+               customers.add(create(resultSet));
             }
         }
-        return null;
+        return customers;
     }
 
     @Override

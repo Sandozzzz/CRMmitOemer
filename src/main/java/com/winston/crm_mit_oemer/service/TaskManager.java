@@ -7,6 +7,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * Task Manager class is used to perform CRUD functions for the tasks
+ * **/
 public class TaskManager implements ICRUD<TaskDTO, Note> {
     private final String TABLE_NAME = "tasks";
 
@@ -81,16 +85,22 @@ public class TaskManager implements ICRUD<TaskDTO, Note> {
     }
 
     @Override
-    public TaskDTO findById(int id) throws SQLException {
-        final String SQL = "SELECT * FROM " + TABLE_NAME + " WHERE id=?";
+    public List<TaskDTO> findById(int id) throws SQLException {
+        List<TaskDTO> taskList = new ArrayList<>();
+        final String SQL = "SELECT t.id AS task_id, t.taskType, t.description, t.status, t.priority, t.personalid, t.customerid, t.startdate, t.enddate, t.createdDate, " +
+                "p.id AS personal_id, p.name AS personal_name, p.surname AS personal_surname, p.email AS personal_email, p.password, p.status AS personal_status, p.phone AS personal_phone, p.profilePhoto AS personal_profilePhoto, p.createdDate AS personal_createdDate, p.isNewUser, " +
+                "c.id AS customer_id, c.name AS customer_name, c.surname AS customer_surname, c.email AS customer_email, c.status AS customer_status, c.phone AS customer_phone, c.profilePhoto AS customer_profilePhoto, c.createdDate AS customer_createdDate, c.company, c.customerType " +
+                "FROM " + TABLE_NAME + " t" +
+                " JOIN users p ON t.personalid = p.id " +
+                " JOIN customer c ON t.customerid = c.id"+ " WHERE personalid=?";
         try (Connection con = ConnectionFactory.getConnection(); PreparedStatement stmt = con.prepareStatement(SQL)) {
             stmt.setInt(1, id);
             ResultSet resultSet = stmt.executeQuery();
             if (resultSet.next()) {
-                return create(resultSet);
+                 taskList.add(create(resultSet));
             }
+            return taskList;
         }
-        return null;
     }
 
     @Override

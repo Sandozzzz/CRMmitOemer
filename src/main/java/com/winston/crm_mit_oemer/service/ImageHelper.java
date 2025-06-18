@@ -10,7 +10,9 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.util.Objects;
 
-
+/**
+ * Image Helper class is used to help for adding, reading and converting Photos.
+ * **/
 public class ImageHelper {
 
     public static byte[] loadImageBytesFromFile(String path) {

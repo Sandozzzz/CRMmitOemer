@@ -5,6 +5,7 @@ import com.winston.crm_mit_oemer.util.TaskStatus;
 import com.winston.crm_mit_oemer.util.TaskType;
 import java.time.LocalDate;
 
+/**TaskDTO is used to create a task with a user and customer object.**/
 public class TaskDTO extends Tasks {
     private User personal;
     private Customer customer;

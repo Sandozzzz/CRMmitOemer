@@ -2,6 +2,7 @@ package com.winston.crm_mit_oemer.model;
 
 import java.time.LocalDate;
 
+/**Note model **/
 public class Note {
 private int id;
 private String note;

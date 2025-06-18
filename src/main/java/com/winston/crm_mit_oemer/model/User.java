@@ -3,7 +3,7 @@ package com.winston.crm_mit_oemer.model;
 import com.winston.crm_mit_oemer.util.UserType;
 
 import java.time.LocalDate;
-
+/**User model **/
 public class User extends Person {
 private String password;
 private  boolean isNewUser;
