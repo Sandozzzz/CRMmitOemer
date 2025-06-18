@@ -4,14 +4,38 @@ AnchorPane {
     -fx-background-color: #ffffff;
 }
 
-Button {
+#main-button {
     -fx-font-size: 24;
     -fx-background-color: #5C8D89;
 }
+#main-button:hover {
+    -fx-background-color: #A7D7C5;
+    -fx-text-fill: #F4F9F4;
+    -fx-font-weight: bold ;
+
+}
+#main-button:hover .button-image {
+    visibility: hidden;
+    opacity: 0;
+    -fx-transition: opacity 0.3s ease-out;
+
+}
+
+#main-button:hover .button-info-label {
+    visibility: visible;
+    opacity: 1;
+    -fx-transition: opacity 0.3s ease-out;
+}
+
 
 #normal-button {
     -fx-font-size: 16;
     -fx-background-color: #5C8D89;
+}
+#normal-button:hover {
+    -fx-background-color: #A7D7C5;
+    -fx-text-fill: #F4F9F4;
+    -fx-font-weight: bold ;
 }
 
 #cancel-button {
